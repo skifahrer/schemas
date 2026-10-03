@@ -284,6 +284,8 @@ download per container format.
 - Keys starting with `_` are metadata; every other top-level key is a country.
 - A package (`maps.<id>`) and each of its `formats` need `download`; everything else is optional.
 - A package's top mirrors one of its formats, the ZIP where there is one, for older readers.
+- `min_app_version` on a package (`"1.2"`, `"1.2.3"`) is the oldest app that can display it; older
+  apps don't offer it. Absent, any app can.
 - Dates are ISO 8601 UTC strings, with the same instant as Unix seconds in `*_ts`.
 - Unknown keys are allowed. The pipeline validates every catalog it writes against this schema.
 
