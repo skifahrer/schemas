@@ -84,6 +84,7 @@
         "updated_at": { "$ref": "#/$defs/isoDate" },
         "updated_ts": { "type": "number", "minimum": 0 },
         "sha256": { "$ref": "#/$defs/sha256" },
+        "min_app_version": { "$ref": "#/$defs/appVersion", "description": "The oldest Riki Maps that can display it; older ones don't offer it. Absent: any." },
         "formats": {
           "type": "object",
           "properties": {
@@ -159,6 +160,11 @@
       "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$",
       "description": "ISO 8601, UTC."
     },
-    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "appVersion": {
+      "type": "string",
+      "pattern": "^\\d+(\\.\\d+){0,2}$",
+      "description": "The app's `CFBundleShortVersionString`, compared part by part as numbers: `1.10` is newer than `1.9`."
+    }
   }
 }
