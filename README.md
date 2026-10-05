@@ -166,6 +166,9 @@ reuses mapson's `$defs` by relative `$ref`.
 
 `kind` is one of `arcgis` `tilejson` `tiles` `mapproxy` `api`. The value rules above apply.
 
+A layer with `addedByHand` true was typed in by the user rather than published by the server.
+It has its own `template` (or an Esri `number`), and a reader keeps it when it reads the server again.
+
 **Credentials are the writer's choice.** With `includesCredentials` false, the file has no
 `rikiHeaders`. Query keys such as `token`, `key` or `api_key` are also removed from every
 address. Header *names* stay, so the reader knows which values it must supply. A reader should
