@@ -160,6 +160,10 @@
         "hidesRouteIcons": { "type": "boolean" },
         "hidesTrails": { "type": "boolean" },
         "drawsDetailedRailways": { "type": "boolean" },
+        "labelLanguage": {
+          "type": "string",
+          "description": "Language a Riki layer's labels read: an OSM `name:` suffix (`de`, `zh-Hans`), or `local` for the names as signed. Absent follows the device's languages."
+        },
         "originURL": { "type": "string", "description": "Where the layer's features were fetched from." },
         "referrer": { "type": "string" },
         "requestHeaderNames": {
