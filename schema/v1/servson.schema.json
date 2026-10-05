@@ -106,7 +106,8 @@
         },
         "minZoom": { "type": "integer", "minimum": 0 },
         "maxZoom": { "type": "integer", "minimum": 0 },
-        "bounds": { "$ref": "mapson.schema.json#/$defs/geoBox" }
+        "bounds": { "$ref": "mapson.schema.json#/$defs/geoBox" },
+        "addedByHand": { "type": "boolean", "description": "Typed in by the user, not published by the server; a re-read keeps it." }
       }
     },
 
