@@ -11,6 +11,7 @@
   "selectedStyleID": "A1000000-0000-4000-8000-000000000001",
   "defaultStyleID": "A1000000-0000-4000-8000-000000000001",
   "hiddenFromPicker": false,
+  "hidesLegend": true,
   "stackID": "C3000000-0000-4000-8000-000000000001",
   "stackName": "Slovakia",
   "stackIcon": { "symbol": "flag", "iconTintHex": "#1565C0" },
