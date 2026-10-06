@@ -51,6 +51,7 @@
         "iconTintHex": { "type": "string", "description": "Colour behind the icon, `#RRGGBB`." },
         "iconPicture": { "$ref": "#/$defs/base64", "description": "A PNG or JPEG worn in place of the icon." },
         "hiddenFromPicker": { "type": "boolean" },
+        "hidesLegend": { "type": "boolean", "description": "Whether the legend button is kept off this map; absent shows it." },
         "esriServices": {
           "type": "array",
           "items": { "$ref": "#/$defs/esriService" },
