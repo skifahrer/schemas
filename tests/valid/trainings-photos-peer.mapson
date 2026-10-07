@@ -43,7 +43,8 @@
           "raw": 37
         },
         "newest": 781234567.5,
-        "announcesArrivals": true
+        "announcesArrivals": true,
+        "offersLastTraining": false
       }
     },
     {
