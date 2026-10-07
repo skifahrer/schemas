@@ -544,6 +544,7 @@
         },
         "healthApp": { "type": "string" },
         "announcesArrivals": { "type": "boolean" },
+        "offersLastTraining": { "type": "boolean", "description": "Absent is true: the map shows a button that opens the layer's newest training." },
         "sourceDevice": { "type": "string" },
         "sourceDeviceName": { "type": "string" }
       }
