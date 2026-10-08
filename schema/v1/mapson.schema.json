@@ -52,6 +52,7 @@
         "iconPicture": { "$ref": "#/$defs/base64", "description": "A PNG or JPEG worn in place of the icon." },
         "hiddenFromPicker": { "type": "boolean" },
         "hidesLegend": { "type": "boolean", "description": "Whether the legend button is kept off this map; absent shows it." },
+        "requiresUnlock": { "type": "boolean", "description": "Whether Face ID, Touch ID or the device passcode is asked before the map is shown or edited; absent opens it freely." },
         "esriServices": {
           "type": "array",
           "items": { "$ref": "#/$defs/esriService" },
