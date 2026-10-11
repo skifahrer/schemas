@@ -37,6 +37,7 @@
       "opacity": 1,
       "isEnabled": true,
       "source": { "region": { "overlay": "cartography" } },
+      "requiredRegions": ["slovakia-zilinsky", "slovakia-presovsky"],
       "credits": [
         {
           "holder": "OpenStreetMap contributors",

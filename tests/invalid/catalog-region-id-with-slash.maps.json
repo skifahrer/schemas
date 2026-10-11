@@ -1,0 +1,6 @@
+{
+  "slovensko": {
+    "id": "slovakia",
+    "regions": { "presovsky": { "id": "slovakia/presovsky" } }
+  }
+}

@@ -4,6 +4,7 @@
   "_updated_at": "2026-10-01T09:35:59Z",
   "_updated_ts": 1790847359,
   "slovensko": {
+    "id": "slovakia",
     "name": "Slovensko",
     "regions": {
       "banskobystricky": {
@@ -20,6 +21,7 @@
         "dem_source": "dmr5",
         "drive": "slovensko/banskobystricky",
         "features_maxzoom": 15,
+        "id": "slovakia-banskobystricky",
         "layers": [
           "vrstevnice_dmr5_5m",
           "skaly_dmr5",

@@ -119,6 +119,11 @@
     "date": { "type": "number", "description": "Seconds since 2001-01-01T00:00:00Z." },
     "stringMap": { "type": "object", "additionalProperties": { "type": "string" } },
     "stringList": { "type": "array", "items": { "type": "string" } },
+    "regionId": {
+      "type": "string",
+      "pattern": "^[a-z0-9_]+(-[a-z0-9_]+)*$",
+      "description": "A region's id in maps.json: its download.openstreetmap.fr path below the continent, folders joined by `-` (`slovakia`, `slovakia-banskobystricky`, `france-rhone_alpes-savoie`)."
+    },
 
     "layer": {
       "type": "object",
@@ -165,6 +170,12 @@
         "labelLanguage": {
           "type": "string",
           "description": "Language a Riki layer's labels read: an OSM `name:` suffix (`de`, `zh-Hans`), or `local` for the names as signed. Absent follows the device's languages."
+        },
+        "requiredRegions": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/regionId" },
+          "uniqueItems": true,
+          "description": "Regions of maps.json a `region` layer needs downloaded before the map is used; readers offer to download those missing. Absent or empty: none."
         },
         "originURL": { "type": "string", "description": "Where the layer's features were fetched from." },
         "referrer": { "type": "string" },

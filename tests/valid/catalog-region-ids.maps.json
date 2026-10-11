@@ -1,0 +1,17 @@
+{
+  "slovensko": {
+    "id": "slovakia",
+    "name": "Slovensko",
+    "regions": {
+      "presovsky": {
+        "id": "slovakia-presovsky",
+        "name": "Prešovský kraj",
+        "subregions": {
+          "pieniny": { "id": "slovakia-presovsky-pieniny", "name": "Pieniny" }
+        }
+      },
+      "presovsky_test4km2": { "id": "slovakia-presovsky_test4km2", "name": "Prešovský kraj – quick test 4 km²" }
+    }
+  },
+  "svet": { "id": "world", "name": "Svet" }
+}

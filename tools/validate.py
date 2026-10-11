@@ -80,6 +80,24 @@ def json_issues(validator, data, where=""):
     return schema_issues(validator, document, where)
 
 
+def catalog_issues(validator, data):
+    """The schema, then what it can't say: no region id twice."""
+    found = json_issues(validator, data)
+    if found:
+        return found
+    seen = {}
+    pending = [(f"$.{k}", v) for k, v in json.loads(data).items() if not k.startswith(("_", "$"))]
+    while pending:
+        where, area = pending.pop()
+        if area.get("id") in seen:
+            found.append(f"{where}: id {area['id']} is also {seen[area['id']]}")
+        elif "id" in area:
+            seen[area["id"]] = where
+        for nest in ("regions", "subregions"):
+            pending += [(f"{where}.{nest}.{k}", v) for k, v in (area.get(nest) or {}).items()]
+    return sorted(found)
+
+
 def mapszip_issues(checking, data):
     """The container: magic, version, manifest and each entry; then the mapspack it holds."""
     if len(data) < 9 or data[:4] != MAGIC:
@@ -182,6 +200,8 @@ def issues(checking, path):
         return [f"not readable: {error}"]
     if kind == "mapszip-file":
         return mapszip_issues(checking, data)
+    if kind == "maps":
+        return catalog_issues(checking[kind], data)
     return json_issues(checking[kind], data)
 
 
