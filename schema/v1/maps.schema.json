@@ -19,6 +19,10 @@
       "type": "object",
       "description": "A country, region or subregion. A country names its `regions`; any area may name `subregions`.",
       "properties": {
+        "id": {
+          "$ref": "mapson.schema.json#/$defs/regionId",
+          "description": "Unique across the catalog: the download.openstreetmap.fr path below the continent, folders joined by `-`. Layers name it in `requiredRegions`."
+        },
         "name": { "type": "string" },
         "drive": { "type": "string", "description": "Its folder on the pipeline's Drive." },
         "updated_at": { "$ref": "#/$defs/isoDate" },

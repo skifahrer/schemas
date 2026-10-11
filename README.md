@@ -74,6 +74,18 @@ names is **optional**. Here are the required ones:
 The schema lists every nested object: Esri services, API readings, renderers,
 arrangements and the rest.
 
+### Regions a layer needs
+
+A `region` layer may name the [maps.json](#mapsjson) regions it needs, by [id](#region-ids):
+
+```jsonc
+{ "source": { "region": { "overlay": "cartography" } },
+  "requiredRegions": ["slovakia-presovsky", "slovakia-zilinsky"] }
+```
+
+A reader that opens the map offers to download those it doesn't hold. The list travels with the
+map wherever it goes: a file, iCloud, a shared map.
+
 ### Several maps
 
 A file with `maps` is a collection. Each entry is a whole map, exactly as it would be written
@@ -285,12 +297,34 @@ download per container format.
 ```
 
 - Keys starting with `_` are metadata; every other top-level key is a country.
+- Every country, region and subregion has an [`id`](#region-ids), unique across the catalog.
 - A package (`maps.<id>`) and each of its `formats` need `download`; everything else is optional.
 - A package's top mirrors one of its formats, the ZIP where there is one, for older readers.
 - `min_app_version` on a package (`"1.2"`, `"1.2.3"`) is the oldest app that can display it; older
   apps don't offer it. Absent, any app can.
 - Dates are ISO 8601 UTC strings, with the same instant as Unix seconds in `*_ts`.
 - Unknown keys are allowed. The pipeline validates every catalog it writes against this schema.
+
+### Region ids
+
+Keys under `regions` are unique only within their country. The `id` is unique across the whole
+catalog: the region's path on [download.openstreetmap.fr](https://download.openstreetmap.fr/extracts/)
+below the continent, one piece per folder, joined by `-`. A `-` inside an osm.fr name becomes `_`,
+so `-` only ever separates levels.
+
+| osm.fr extract | id |
+|---|---|
+| `europe/slovakia-latest.osm.pbf` | `slovakia` |
+| `europe/slovakia/banskobystricky-latest.osm.pbf` | `slovakia-banskobystricky` |
+| `europe/france/rhone_alpes/savoie-latest.osm.pbf` | `france-rhone_alpes-savoie` |
+| `north-america/us-west/california-latest.osm.pbf` | `us_west-california` |
+| `russia/central_federal_district-latest.osm.pbf` | `russia-central_federal_district` |
+
+A subregion (a cut-out) adds its key to its region's id: `slovakia-presovsky-pieniny`. What osm.fr
+doesn't publish takes a name of its own (`world`). OpenStreetMap has no such id of its own: a
+boundary relation's number is unique but opaque, and ISO 3166-2 codes cover only official
+subdivisions, not osm.fr's groupings or cut-outs. `tools/validate.py` refuses a catalog that
+uses one id twice.
 
 ## Validating
 
