@@ -310,7 +310,7 @@ download per container format.
 ```jsonc
 {
   "_updated_at": "2026-10-01T09:35:02Z", "_updated_ts": 1790847302,
-  "slovensko": { "name": "Slovensko", "regions": {
+  "slovensko": { "name": "Slovakia", "regions": {
     "banskobystricky": { "bbox": [18.46, 48.035, 20.49, 48.965], "maxzoom": 14,
       "maps": { "base": { "download": "…", "size": 167844433, "sha256": "…",
         "formats": { "aar": { "download": "…" }, "zip": { "download": "…" } } } },
@@ -320,6 +320,8 @@ download per container format.
 
 - Keys starting with `_` are metadata; every other top-level key is a country.
 - Every country, region and subregion has an [`id`](#region-ids), unique across the catalog.
+- `name` is what the app shows: a country in English (`Slovakia`), a region or subregion in its
+  own language (`Banskobystrický kraj`, `Niederösterreich`).
 - A package (`maps.<id>`) and each of its `formats` need `download`; everything else is optional.
 - A package's top mirrors one of its formats, the ZIP where there is one, for older readers.
 - `min_app_version` on a package (`"1.2"`, `"1.2.3"`) is the oldest app that can display it; older

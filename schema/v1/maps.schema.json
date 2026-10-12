@@ -23,7 +23,8 @@
           "$ref": "mapson.schema.json#/$defs/regionId",
           "description": "Unique across the catalog: the download.openstreetmap.fr path below the continent, folders joined by `-`. Layers name it in `requiredRegions`."
         },
-        "name": { "type": "string" },
+        "name": { "type": "string",
+          "description": "Shown by the app: a country in English, a region or subregion in its own language." },
         "drive": { "type": "string", "description": "Its folder on the pipeline's Drive." },
         "updated_at": { "$ref": "#/$defs/isoDate" },
         "updated_ts": { "type": "integer", "minimum": 0 },
