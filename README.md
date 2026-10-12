@@ -1,8 +1,8 @@
 # schemas
 
-The file formats of Riki Maps and the skifahrer/maptiles pipeline, as JSON Schema 2020-12.
-This repository is their only home: the app and the pipeline pull the schemas from here when
-they need them and carry no copy.
+The file formats of Riki Maps, the skifahrer/maptiles pipeline and skifahrer/traffic-signs, as
+JSON Schema 2020-12. This repository is their only home: the app and the pipelines pull the
+schemas from here when they need them and carry no copy.
 
 Three kinds of file, each holding one or more of what it is for:
 
@@ -24,6 +24,14 @@ And one the pipeline publishes:
 | | | |
 |---|---|---|
 | [`maps.json`](#mapsjson) | the region catalog skifahrer/maptiles publishes | [`maps.schema.json`](schema/v1/maps.schema.json) |
+
+And the files of [skifahrer/traffic-signs](#traffic-signs):
+
+| File | What it holds | Schema |
+|---|---|---|
+| [`<sign>-<country>.json`](#one-countrys-sign) | one country's version of a sign: its code, image and source | [`sign.schema.json`](schema/v1/sign.schema.json) |
+| [`<sign>.json`](#a-signs-names) | a sign's names, one per language | [`sign-names.schema.json`](schema/v1/sign-names.schema.json) |
+| [`data.json`](#the-viewers-datajson) | everything the traffic signs viewer shows | [`signs-data.schema.json`](schema/v1/signs-data.schema.json) |
 
 Every schema is published at
 `https://raw.githubusercontent.com/skifahrer/schemas/master/schema/v1/<name>.schema.json`.
@@ -340,6 +348,86 @@ boundary relation's number is unique but opaque, and ISO 3166-2 codes cover only
 subdivisions, not osm.fr's groupings or cut-outs. `tools/validate.py` refuses a catalog that
 uses one id twice.
 
+## Traffic signs
+
+[skifahrer/traffic-signs](https://github.com/skifahrer/traffic-signs) keeps road signs by what
+they mean, one folder per sign and one per country inside it:
+
+```
+signs/<category>/<sign>/<sign>.json                       the names
+signs/<category>/<sign>/<country>/<sign>-<country>.json   one country's sign
+signs/<category>/<sign>/<country>/<sign>-<country>.svg    its image
+```
+
+| Value | Rule |
+|---|---|
+| `category` | one of `warning` `regulatory` `information` `additional-panel` `traffic-device` `traffic-signal` |
+| `sign` | English, lowercase, single hyphens: `bend-left`, `speed-limit-50`, `maximum-weight-3-5t` |
+| `country` | ISO 3166-1 alpha-2, lowercase (`sk`), or ISO 3166-2 for a region (`us-ca`) |
+| years (`valid_until`) | whole numbers: the last year a sign or image was known to be in use |
+
+### One country's sign
+
+| | |
+|---|---|
+| Schema | [`schema/v1/sign.schema.json`](schema/v1/sign.schema.json) |
+| Example | [`examples/danger-sk.sign.json`](examples/danger-sk.sign.json) |
+
+```jsonc
+{
+  "sign": "danger", "category": "warning", "country": "sk",  // the same as its path
+  "code": "101",                                              // the national code
+  "image": { "file": "danger-sk.svg", "sha1": "f3c1…", "source": "https://commons.wikimedia.org/wiki/File:…",
+             "author": "…", "license": "Public domain", "license_url": null },
+  "valid_until": 2026,                                        // only once it left its source page
+  "archived": [ { "file": "danger-sk-archived-2026.svg", /* the image's keys */ "valid_until": 2026 } ],
+  "source": { "pipeline": "sk-wikipedia", "page": "https://sk.wikipedia.org/wiki/…", "file": "101 Nebezpečenstvo.svg" }
+}
+```
+
+| Object | Required keys |
+|---|---|
+| root | `sign` `category` `country` `code` |
+| `image` | `file` `sha1` `source` `author` `license` `license_url` (the last three may be `null`) |
+| `archived[]` | `file` (`null` when no file was kept) `valid_until` |
+| `source` | `pipeline` `page` `file` |
+
+`image` is absent until the image is downloaded, and after the sign left its page.
+
+### A sign's names
+
+| | |
+|---|---|
+| Schema | [`schema/v1/sign-names.schema.json`](schema/v1/sign-names.schema.json) |
+| Example | [`examples/danger.sign-names.json`](examples/danger.sign-names.json) |
+
+```json
+{ "en": "Give way", "de": "Vorfahrt gewähren", "en-GB": "Give way", "en-US": "Yield" }
+```
+
+Shared by every country with the sign. `en` is required and comes first. Keys are ISO 639-1
+codes; a second country with its own wording in a language adds its region (`de-AT`,
+`en-US`, `en-US-CA` for a region of a country). Nothing else may be in the file.
+
+### The viewer's data.json
+
+| | |
+|---|---|
+| Schema | [`schema/v1/signs-data.schema.json`](schema/v1/signs-data.schema.json) |
+| Example | [`examples/viewer.signs-data.json`](examples/viewer.signs-data.json) |
+
+Built from `signs/` by `python3 -m viewer`: `categories` (folder → label), `countries` (code →
+name, language, and `region_of` for a region), `groups` (continents and groups of countries
+to compare), and `signs`, each with its `names` and per country its `code`, `image` (a path
+from the site root), licence, author, source, `valid_until` and `archived` images. A variant
+(`crosswind-from-left`) names its sign in `variant_of`; the sign lists it in `variants`.
+
+To check a whole checkout, every file against its schema and its path:
+
+```sh
+tools/validate.py --signs ../traffic-signs/signs
+```
+
 ## Validating
 
 ```sh
@@ -348,14 +436,15 @@ tools/validate.py my-map.mapson my-servers.servson my-map.mapszip maps.json
 ```
 
 Each file is checked against the schema its name says: its extension, `maps.json` or
-`*.maps.json` for the catalog, `package.json` or `*.package.json` for a mapspack manifest. A
+`*.maps.json` for the catalog, `package.json` or `*.package.json` for a mapspack manifest,
+`*.sign.json`, `*.sign-names.json` and `*.signs-data.json` for traffic sign files. A
 folder is read as a mapspack. A mapszip is read as a container (magic, version, sizes, every
 entry's sha256) and then as the mapspack it holds; packed entries need `pip install pyliblzfse`.
 A `.mapsaar` is unpacked with `aa`, so only on a Mac.
 
 Any 2020-12 validator works, for example Ajv: `new Ajv2020().compile(schema)` from
 `ajv/dist/2020`. For servson, mapspack and maps.json, `addSchema(mapson)` first: they `$ref` its
-`$defs`. The schemas match what Riki Maps' decoders accept, so a file that passes imports there.
+`$defs`; for signs-data, `addSchema(sign)`. The schemas match what Riki Maps' decoders accept, so a file that passes imports there.
 `tests/valid/` and `tests/invalid/` hold the edge cases that CI checks.
 
 In an editor, map `*.mapson` and `*.servson` to JSON. VS Code then picks the schema up from the

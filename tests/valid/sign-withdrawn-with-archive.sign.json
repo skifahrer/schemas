@@ -1,0 +1,10 @@
+{
+  "sign": "danger", "category": "warning", "country": "sk", "code": "101", "valid_until": 2026,
+  "archived": [
+    { "file": "danger-sk-archived-2026.svg", "sha1": "f3c1a01677763c1af55d069ffac54c5b729e150d",
+      "source": "https://commons.wikimedia.org/wiki/File:101.svg", "author": null, "license": "Public domain",
+      "license_url": null, "valid_until": 2026 },
+    { "file": null, "valid_until": 2025 }
+  ],
+  "source": { "pipeline": "sk-wikipedia", "page": "https://sk.wikipedia.org/wiki/X", "file": "101.svg" }
+}

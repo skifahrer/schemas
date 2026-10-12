@@ -1,0 +1,31 @@
+{
+  "$schema": "https://raw.githubusercontent.com/skifahrer/schemas/master/schema/v1/signs-data.schema.json",
+  "categories": { "warning": "Warning signs" },
+  "countries": {
+    "sk": { "name": "Slovakia", "language": "sk", "language_name": "Slovak" },
+    "us-ca": { "name": "California", "language": "en-US-CA", "language_name": "English", "region_of": "us", "region_label": "US states" }
+  },
+  "groups": [
+    { "id": "europe", "label": "Europe", "kind": "continent", "countries": ["sk"], "members": 47 },
+    { "id": "us-states", "label": "US states", "kind": "region", "countries": ["us-ca"], "members": 52 }
+  ],
+  "signs": [
+    {
+      "category": "warning", "sign": "crosswind",
+      "names": { "en": "Crosswind", "sk": "Bočný vietor" },
+      "countries": {
+        "sk": { "code": "128", "image": "signs/warning/crosswind/sk/crosswind-sk.svg", "license": "Public domain", "author": null,
+                "source": "https://commons.wikimedia.org/wiki/File:128_Bo%C4%8Dn%C3%BD_vietor.svg" }
+      },
+      "variants": ["crosswind-from-left"]
+    },
+    {
+      "category": "warning", "sign": "crosswind-from-left", "variant_of": "crosswind",
+      "names": { "en": "Crosswind from the left" },
+      "countries": {
+        "sk": { "code": "128a", "image": null, "license": null, "author": null, "source": null, "valid_until": 2026,
+                "archived": [{ "image": "signs/warning/crosswind-from-left/sk/crosswind-from-left-sk-archived-2026.svg", "valid_until": 2026 }] }
+      }
+    }
+  ]
+}

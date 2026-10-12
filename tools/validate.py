@@ -1,13 +1,18 @@
 #!/usr/bin/env python3
-"""Validate mapson, servson, mapspack, mapszip, mapsaar and maps.json files against their schemas.
+"""Validate mapson, servson, mapspack, mapszip, mapsaar, maps.json and traffic sign files against their schemas.
 
     pip install jsonschema
     tools/validate.py my-maps.mapson my-servers.servson Trip.mapspack Trip.mapszip maps.json
     tools/validate.py --expect-invalid tests/invalid/*
+    tools/validate.py --signs ../traffic-signs/signs
 
 Each file is checked against the schema its name says: by extension, or `maps.json` /
-`*.maps.json` for the catalog and `package.json` / `*.package.json` for a mapspack manifest.
+`*.maps.json` for the catalog and `package.json` / `*.package.json` for a mapspack manifest;
+`*.sign.json` for one country's traffic sign, `*.sign-names.json` for a sign's names and
+`*.signs-data.json` for the traffic signs viewer's data.json.
 A folder is read as a mapspack; a .mapszip or .mapsaar is unpacked into one first.
+`--signs` reads a skifahrer/traffic-signs `signs/` folder, whose files are named after the
+sign and country instead.
 Exits 1 when any file does not come out as expected.
 """
 import argparse
@@ -25,7 +30,7 @@ from referencing import Registry, Resource
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SCHEMAS = ROOT / "schema" / "v1"
-NAMES = ("mapson", "servson", "mapszip", "mapspack", "maps")
+NAMES = ("mapson", "servson", "mapszip", "mapspack", "maps", "sign", "sign-names", "signs-data")
 SUFFIXES = {".mapson": "mapson", ".rikimap": "mapson", ".servson": "servson",
             ".mapszip": "mapszip-file", ".mapsaar": "mapsaar-file"}
 MAGIC = b"RKZS"
@@ -43,7 +48,7 @@ def load(name):
 
 def validators(override=None):
     schemas = {name: load(name) for name in NAMES}
-    # servson, mapspack and maps $ref mapson's $defs; registered under their real ids
+    # servson, mapspack and maps $ref mapson's $defs, signs-data sign's; registered under their real ids
     registry = Registry().with_resources(
         (schema["$id"], Resource.from_contents(schema)) for schema in schemas.values())
     if override:
@@ -64,6 +69,9 @@ def kind_of(path):
         return "maps"
     if name == "package.json" or name.endswith(".package.json"):
         return "mapspack"
+    for kind in ("sign-names", "signs-data", "sign"):
+        if name.endswith(f".{kind}.json"):
+            return kind
     return SUFFIXES.get(path.suffix.lower(), "mapson")
 
 
@@ -188,6 +196,40 @@ def mapsaar_issues(checking, path):
         return mapspack_issues(checking, pathlib.Path(folder))
 
 
+def signs_issues(checking, folder):
+    """A traffic-signs `signs/` folder: every names file and country file, and that each
+    says the category, sign and country its path says and names an image that is there."""
+    found = []
+    files = 0
+    for names in sorted(folder.glob("*/*/*.json")):
+        files += 1
+        where = f"{names.relative_to(folder)} "
+        if names.stem != names.parent.name:
+            found.append(f"{where}is not named after its sign folder")
+        found += json_issues(checking["sign-names"], names.read_bytes(), where)
+    for meta in sorted(folder.glob("*/*/*/*.json")):
+        files += 1
+        category, sign, country = meta.relative_to(folder).parts[:3]
+        where = f"{meta.relative_to(folder)} "
+        if meta.name != f"{sign}-{country}.json":
+            found.append(f"{where}is not named {sign}-{country}.json")
+        data = meta.read_bytes()
+        problems = json_issues(checking["sign"], data, where)
+        found += problems
+        if problems:
+            continue
+        document = json.loads(data)
+        for key, value in (("category", category), ("sign", sign), ("country", country)):
+            if document[key] != value:
+                found.append(f"{where}{key} is {document[key]!r}, its path says {value!r}")
+        for image in [document.get("image"), *document.get("archived", [])]:
+            if image and image.get("file") and not (meta.parent / image["file"]).is_file():
+                found.append(f"{where}names {image['file']}, which is not in its folder")
+    if not files:
+        found.append("no signs: pass the signs/ folder of a traffic-signs checkout")
+    return found
+
+
 def issues(checking, path):
     kind = kind_of(path)
     if kind == "mapspack-dir":
@@ -211,9 +253,22 @@ def main():
     parser.add_argument("--expect-invalid", action="store_true",
                         help="every file must FAIL validation")
     parser.add_argument("--schema", help="check every JSON file against this schema instead")
+    parser.add_argument("--signs", action="store_true",
+                        help="each argument is the signs/ folder of a traffic-signs checkout")
     args = parser.parse_args()
 
     checking = validators(args.schema)
+    if args.signs:
+        failed = False
+        for name in args.files:
+            found = signs_issues(checking, pathlib.Path(name))
+            print(f"{'FAIL' if found else 'ok  '} {name}")
+            for line in found[:200]:
+                print(f"     {line}")
+            if len(found) > 200:
+                print(f"     … and {len(found) - 200} more")
+            failed |= bool(found)
+        return 1 if failed else 0
 
     failed = False
     for name in args.files:

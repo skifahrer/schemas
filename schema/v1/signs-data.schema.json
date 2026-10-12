@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/skifahrer/schemas/master/schema/v1/signs-data.schema.json",
+  "title": "traffic signs viewer data.json v1",
+  "description": "What the skifahrer/traffic-signs viewer reads: every sign with its names and each country's image, built from `signs/` by `python3 -m viewer`. Readers ignore keys they don't know.",
+  "type": "object",
+  "required": ["categories", "countries", "groups", "signs"],
+  "properties": {
+    "$schema": { "type": "string", "description": "The schema the file follows: this schema's $id." },
+    "categories": {
+      "type": "object",
+      "description": "Category folder → its label, in display order.",
+      "propertyNames": { "$ref": "sign.schema.json#/$defs/category" },
+      "additionalProperties": { "type": "string" }
+    },
+    "countries": {
+      "type": "object",
+      "description": "Every country with at least one sign, by code, sorted.",
+      "propertyNames": { "$ref": "sign.schema.json#/$defs/country" },
+      "additionalProperties": { "$ref": "#/$defs/country" }
+    },
+    "groups": {
+      "type": "array",
+      "description": "Groups the viewer can compare at once, in menu order.",
+      "items": { "$ref": "#/$defs/group" }
+    },
+    "signs": {
+      "type": "array",
+      "description": "By category, then by folder name.",
+      "items": { "$ref": "#/$defs/sign" }
+    }
+  },
+  "$defs": {
+    "sitePath": {
+      "type": "string",
+      "minLength": 1,
+      "description": "An image: a path from the site root (`signs/warning/danger/sk/danger-sk.svg`), or a web rendering when browsers cannot show the file (a TIFF's Commons thumbnail)."
+    },
+    "country": {
+      "type": "object",
+      "required": ["name", "language", "language_name"],
+      "properties": {
+        "name": { "type": "string", "description": "English: `Slovakia`, `California`. The upper-case code when the country has no pipeline." },
+        "language": {
+          "type": ["string", "null"],
+          "description": "The key of the country's names in each sign's `names`: `sk`, `de-AT`, `en-US-CA`. Null without a pipeline."
+        },
+        "language_name": { "type": ["string", "null"] },
+        "region_of": { "$ref": "sign.schema.json#/$defs/country", "description": "Only for a region of a country (`us-ca`): the country (`us`)." },
+        "region_label": { "type": ["string", "null"], "description": "What the country's regions are called: `US states`." }
+      }
+    },
+    "group": {
+      "type": "object",
+      "required": ["id", "label", "kind", "countries", "members"],
+      "properties": {
+        "id": { "$ref": "sign.schema.json#/$defs/slug" },
+        "label": { "type": "string" },
+        "kind": { "enum": ["continent", "group", "region"] },
+        "countries": {
+          "type": "array",
+          "items": { "$ref": "sign.schema.json#/$defs/country" },
+          "uniqueItems": true,
+          "description": "The members that have signs. Empty: listed, but cannot be chosen."
+        },
+        "members": { "type": "integer", "minimum": 0, "description": "How many members the group has in all." }
+      }
+    },
+    "sign": {
+      "type": "object",
+      "required": ["category", "sign", "names", "countries"],
+      "properties": {
+        "category": { "$ref": "sign.schema.json#/$defs/category" },
+        "sign": { "$ref": "sign.schema.json#/$defs/slug" },
+        "names": {
+          "type": "object",
+          "description": "The sign's names file (sign-names.schema.json); empty when it has none.",
+          "additionalProperties": { "type": "string" }
+        },
+        "countries": {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": { "$ref": "sign.schema.json#/$defs/country" },
+          "additionalProperties": { "$ref": "#/$defs/entry" }
+        },
+        "variant_of": { "$ref": "sign.schema.json#/$defs/slug", "description": "The sign of the same category this one is a variant of." },
+        "variants": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "sign.schema.json#/$defs/slug" },
+          "description": "Its variants, in natural order (`speed-limit-5` before `speed-limit-10`)."
+        }
+      }
+    },
+    "entry": {
+      "type": "object",
+      "required": ["code", "image", "license", "author", "source"],
+      "properties": {
+        "code": { "type": ["string", "null"] },
+        "image": { "anyOf": [{ "$ref": "#/$defs/sitePath" }, { "type": "null" }], "description": "Null: not downloaded yet." },
+        "license": { "type": ["string", "null"] },
+        "author": { "type": ["string", "null"] },
+        "source": { "type": ["string", "null"], "description": "The image's page on Wikimedia Commons." },
+        "valid_until": { "$ref": "sign.schema.json#/$defs/year" },
+        "archived": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["image", "valid_until"],
+            "properties": {
+              "image": { "anyOf": [{ "$ref": "#/$defs/sitePath" }, { "type": "null" }] },
+              "valid_until": { "anyOf": [{ "$ref": "sign.schema.json#/$defs/year" }, { "type": "null" }] }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "$schema": "https://raw.githubusercontent.com/skifahrer/schemas/master/schema/v1/sign-names.schema.json",
+  "en": "Other danger",
+  "cs": "Jiné nebezpečí",
+  "de": "Gefahrstelle",
+  "de-AT": "Andere Gefahren",
+  "en-GB": "Other danger",
+  "sk": "Nebezpečenstvo"
+}
