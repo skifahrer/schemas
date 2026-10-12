@@ -74,6 +74,20 @@ names is **optional**. Here are the required ones:
 The schema lists every nested object: Esri services, API readings, renderers,
 arrangements and the rest.
 
+### Names and a note in other languages
+
+Optional. A map may carry a `note` for its readers, and the map and each style may carry their
+name, and the map its note, in other languages:
+
+```jsonc
+{ "name": "Tatry v zime", "nameTranslations": { "en": "Tatras in winter", "de": "Tatra im Winter" },
+  "note": "Stiahnite si najprv Prešovský kraj.", "noteTranslations": { "en": "Download Prešov first." } }
+```
+
+Keys are language tags as Apple's `.lproj` folders name them (`de`, `pt-BR`, `zh-Hans`). A reader
+shows the text for the language it runs in (`pt-BR` also takes `pt`), else `name` or `note`. The
+texts travel with the map: a file, iCloud, a shared map.
+
 ### Regions a layer needs
 
 A `region` layer may name the [maps.json](#mapsjson) regions it needs, by [id](#region-ids):

@@ -26,6 +26,15 @@
         },
         "id": { "$ref": "#/$defs/uuid", "description": "The map's identity. Readers issue a fresh one on import." },
         "name": { "type": "string", "description": "Shown in the map list." },
+        "nameTranslations": {
+          "$ref": "#/$defs/translations",
+          "description": "The name in other languages; a reader shows the one for its own language, else `name`."
+        },
+        "note": { "type": "string", "description": "What the map's author tells its readers about it." },
+        "noteTranslations": {
+          "$ref": "#/$defs/translations",
+          "description": "The note in other languages, picked as `nameTranslations` is."
+        },
         "stack": {
           "type": "array",
           "items": { "$ref": "#/$defs/layer" },
@@ -119,6 +128,12 @@
     "date": { "type": "number", "description": "Seconds since 2001-01-01T00:00:00Z." },
     "stringMap": { "type": "object", "additionalProperties": { "type": "string" } },
     "stringList": { "type": "array", "items": { "type": "string" } },
+    "translations": {
+      "type": "object",
+      "propertyNames": { "pattern": "^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$" },
+      "additionalProperties": { "type": "string" },
+      "description": "Language (a BCP 47 tag as Apple's `.lproj` folders name it: `de`, `pt-BR`, `zh-Hans`) → text. Optional; absent or empty, every reader gets the untranslated text."
+    },
     "regionId": {
       "type": "string",
       "pattern": "^[a-z0-9_]+(-[a-z0-9_]+)*$",
@@ -293,6 +308,10 @@
       "properties": {
         "id": { "$ref": "#/$defs/uuid" },
         "name": { "type": "string" },
+        "nameTranslations": {
+          "$ref": "#/$defs/translations",
+          "description": "The style's name in other languages, picked as the map's is."
+        },
         "symbol": { "type": "string" },
         "iconTintHex": { "type": "string" },
         "iconPicture": { "$ref": "#/$defs/base64" },
