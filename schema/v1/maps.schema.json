@@ -44,6 +44,7 @@
         "features_maxzoom": { "$ref": "#/$defs/zoom" },
         "points_maxzoom": { "$ref": "#/$defs/zoom" },
         "transport_maxzoom": { "$ref": "#/$defs/zoom" },
+        "paths_maxzoom": { "$ref": "#/$defs/zoom" },
         "boundaries_maxzoom": { "$ref": "#/$defs/zoom" },
         "water_maxzoom": { "$ref": "#/$defs/zoom" },
         "rail_maxzoom": { "$ref": "#/$defs/zoom" },
