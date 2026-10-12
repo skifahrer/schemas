@@ -1,0 +1,15 @@
+{
+  "id": "0834FFB7-67BA-4327-87F2-E18AEE11B2FC",
+  "name": "Tatry v zime",
+  "nameTranslations": { "en": "Tatras in winter", "de": "Tatra im Winter", "pt-BR": "Tatras no inverno", "zh-Hans": "冬季塔特拉山" },
+  "note": "Stiahnite si najprv Prešovský kraj.",
+  "noteTranslations": { "en": "Download the Prešov region first." },
+  "isBuiltIn": false, "drawsRegions": false, "isOnlineOnly": false,
+  "stack": [],
+  "styles": [
+    { "id": "1C1E1B66-7B62-4D7E-9E36-4B0D7C7D2F10", "name": "Lyže", "symbol": "figure.skiing.downhill",
+      "nameTranslations": { "en": "Skiing", "de": "Ski" },
+      "origin": { "arrangement": {} }, "notes": "",
+      "adjustments": { "lineWidthScale": 1, "labelSizeScale": 1 } }
+  ]
+}

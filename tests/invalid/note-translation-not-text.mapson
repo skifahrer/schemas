@@ -1,0 +1,8 @@
+{
+  "id": "0834FFB7-67BA-4327-87F2-E18AEE11B2FC",
+  "name": "Tatry",
+  "note": "Winter routes.",
+  "noteTranslations": { "de": ["Winterrouten"] },
+  "isBuiltIn": false, "drawsRegions": false, "isOnlineOnly": false,
+  "stack": [], "styles": []
+}
