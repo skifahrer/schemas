@@ -1,0 +1,64 @@
+{
+  "$schema": "https://raw.githubusercontent.com/skifahrer/schemas/master/schema/v1/mapson.schema.json",
+  "_schemaVersion": 1,
+  "id": "5A1D1821-0000-4000-A000-000000000001",
+  "name": "Roads and paths",
+  "isBuiltIn": false,
+  "drawsRegions": false,
+  "isOnlineOnly": false,
+  "stack": [
+    {
+      "id": "5A1D1821-0000-4000-A000-000000000002",
+      "name": "Roads",
+      "symbol": "map",
+      "role": "base",
+      "opacity": 1,
+      "isEnabled": true,
+      "source": {
+        "region": {
+          "overlay": "roads"
+        }
+      }
+    },
+    {
+      "id": "5A1D1821-0000-4000-A000-000000000003",
+      "name": "Paths",
+      "symbol": "map",
+      "role": "overlay",
+      "opacity": 1,
+      "isEnabled": true,
+      "source": {
+        "region": {
+          "overlay": "paths"
+        }
+      }
+    },
+    {
+      "id": "5A1D1821-0000-4000-A000-000000000004",
+      "name": "Army & history",
+      "symbol": "map",
+      "role": "overlay",
+      "opacity": 1,
+      "isEnabled": true,
+      "source": {
+        "region": {
+          "overlay": "history"
+        }
+      }
+    },
+    {
+      "id": "5A1D1821-0000-4000-A000-000000000005",
+      "name": "Roads & paths",
+      "symbol": "map",
+      "role": "overlay",
+      "opacity": 1,
+      "isEnabled": true,
+      "source": {
+        "region": {
+          "overlay": "roadsPaths"
+        }
+      }
+    }
+  ],
+  "styles": []
+}
