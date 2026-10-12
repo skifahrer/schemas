@@ -1,0 +1,3 @@
+{ "sign": "danger", "category": "warning", "country": "sk", "code": "101",
+  "image": { "file": "danger-sk.svg", "sha1": "not-a-sha", "source": "https://commons.wikimedia.org/wiki/File:101.svg",
+             "author": null, "license": null, "license_url": null } }

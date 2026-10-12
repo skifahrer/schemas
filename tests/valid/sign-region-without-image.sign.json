@@ -1,0 +1,2 @@
+{ "sign": "state-route-marker", "category": "information", "country": "us-ca", "code": "CA",
+  "source": { "pipeline": "us-ca-wikipedia", "page": "https://en.wikipedia.org/wiki/Module:Road_data/strings/USA/CA", "file": "California 1.svg" } }
