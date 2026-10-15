@@ -108,6 +108,30 @@ A `region` layer may name the [maps.json](#mapsjson) regions it needs, by [id](#
 A reader that opens the map offers to download those it doesn't hold. The list travels with the
 map wherever it goes: a file, iCloud, a shared map.
 
+### Keys left out, and how to get them
+
+A map exported without its keys (the gallery's copies always are) leaves out `rikiHeaders`
+and the query keys in its addresses. It says what it left out in `access.missingKeys`, and its
+author can say how readers get their own keys in `access.keysNote` and link the map's manual
+in `access.manualURL`:
+
+```jsonc
+{ "access": {
+    "keysNote": "Sign up at https://tiles.example/signup and copy the key from your account.",
+    "keysNoteTranslations": { "sk": "Zaregistrujte sa na https://tiles.example/signup." },
+    "manualURL": "https://tiles.example/docs/ortofoto",
+    "missingKeys": [
+      { "host": "tiles.example", "name": "apikey", "place": "query" },
+      { "host": "tiles.example", "name": "X-Api-Token", "place": "header" } ] } }
+```
+
+A reader asks for each missing key when the map is added, or later from the map's settings: a
+`query` key goes back into every address of that host, a `header` key is sent with each request
+to it. A key still not entered stays in `missingKeys`.
+
+`fromUnsignedFile: true` marks a map that came in from a file Riki Maps did not sign. It travels
+inside the signature of every later copy, and such a map is never published to the gallery.
+
 ### Several maps
 
 A file with `maps` is a collection. Each entry is a whole map, exactly as it would be written
@@ -461,7 +485,8 @@ Pin a commit or tag there to hold a version.
 ## Security
 
 Riki Maps asks on every export whether keys go with the file, for every format. Without them, it leaves out
-`rikiHeaders` and the query keys in addresses.
+`rikiHeaders` and the query keys in addresses, and names them in `access.missingKeys`, never
+their values. A map sent to the gallery always goes without them.
 
 A `.mapson` can carry `rikiHeaders`, which are header values such as API keys for the
 map's own layers. It can also carry `rikiServiceProxies`. Readers should use either

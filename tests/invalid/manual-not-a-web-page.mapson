@@ -1,0 +1,49 @@
+{
+  "id": "4B0D7C7D-2F10-4E7A-9C3B-1C1E1B667B62",
+  "name": "Ortofoto",
+  "isBuiltIn": false,
+  "drawsRegions": false,
+  "isOnlineOnly": false,
+  "fromUnsignedFile": true,
+  "access": {
+    "keysNote": "Zaregistrujte sa na https://tiles.example/signup a skopírujte kľúč z účtu.",
+    "keysNoteTranslations": {
+      "en": "Sign up at https://tiles.example/signup and copy the key from your account."
+    },
+    "manualURL": "file:///etc/passwd",
+    "missingKeys": [
+      {
+        "host": "tiles.example",
+        "name": "apikey",
+        "place": "query"
+      },
+      {
+        "host": "tiles.example",
+        "name": "X-Api-Token",
+        "place": "header"
+      }
+    ]
+  },
+  "stack": [
+    {
+      "id": "0834FFB7-67BA-4327-87F2-E18AEE11B2FC",
+      "name": "Ortofoto",
+      "symbol": "photo",
+      "role": "base",
+      "opacity": 1,
+      "isEnabled": true,
+      "requestHeaderNames": [
+        "X-Api-Token"
+      ],
+      "source": {
+        "url": {
+          "template": "https://tiles.example/{z}/{x}/{y}.jpg",
+          "maxZoom": 19,
+          "format": "raster",
+          "attribution": "© Tiles"
+        }
+      }
+    }
+  ],
+  "styles": []
+}
