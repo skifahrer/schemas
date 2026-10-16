@@ -108,6 +108,20 @@ A `region` layer may name the [maps.json](#mapsjson) regions it needs, by [id](#
 A reader that opens the map offers to download those it doesn't hold. The list travels with the
 map wherever it goes: a file, iCloud, a shared map.
 
+### Where a map works
+
+`coverage` says where the map has its features and tiles: the whole world, whole countries
+(ISO 3166-1 alpha-2, upper case), parts of countries (maps.json [ids](#region-ids)), or
+countries and regions together. Riki Maps asks for it when a map is sent to the gallery, whose
+chips filter by it.
+
+```jsonc
+{ "coverage": { "world": true } }
+{ "coverage": { "countries": ["SK", "PL"], "regions": ["austria-burgenland"] } }
+```
+
+With `world` true, `countries` and `regions` are not read. Absent says nothing about it.
+
 ### Keys left out, and how to get them
 
 A map exported without its keys (the gallery's copies always are) leaves out `rikiHeaders`
