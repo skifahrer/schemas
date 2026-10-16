@@ -36,6 +36,7 @@
         "copyright": false
       },
       "allowsOffline": false,
+      "coverage": { "countries": ["SK"], "regions": ["austria-burgenland"] },
       "layers": [],
       "publishedServices": [
         {

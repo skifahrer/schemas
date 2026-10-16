@@ -72,6 +72,10 @@
           "description": "Written on every layer taken from the server."
         },
         "allowsOffline": { "type": "boolean", "description": "Whether its tiles may be stored for offline use." },
+        "coverage": {
+          "$ref": "mapson.schema.json#/$defs/coverage",
+          "description": "Where its layers have data. A map drawing them takes it unless the map has its own."
+        },
         "layers": {
           "type": "array",
           "items": { "$ref": "#/$defs/serverLayer" },
