@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/skifahrer/schemas/master/schema/v1/maps.schema.json",
   "title": "maps.json v1",
-  "description": "The region catalog skifahrer/maptiles publishes: countries, their regions and subregions, and each one's downloadable packages. Keys starting with `_` are metadata; every other top-level key is a country.",
+  "description": "The region catalog skifahrer/maptiles publishes: countries, their regions, subregions and mountains, and each one's downloadable packages. Keys starting with `_` are metadata; every other top-level key is a country.",
   "type": "object",
   "properties": {
     "$schema": { "type": "string", "description": "The schema the file follows: this schema's $id." },
@@ -17,7 +17,7 @@
   "$defs": {
     "area": {
       "type": "object",
-      "description": "A country, region or subregion. A country names its `regions`; any area may name `subregions`.",
+      "description": "A country, region, subregion or mountain package. A country names its `regions` and `mountains`; any area may name `subregions`.",
       "properties": {
         "id": {
           "$ref": "mapson.schema.json#/$defs/regionId",
@@ -34,7 +34,7 @@
         "test_km2": { "type": "string", "description": "Only in maps-test.json: km² of terrain a quick test covers." },
         "maxzoom": { "$ref": "#/$defs/zoom" },
         "contours_maxzoom": { "$ref": "#/$defs/zoom" },
-        "contour_interval": { "type": "integer", "minimum": 1, "description": "Metres." },
+        "contour_interval": { "type": "number", "exclusiveMinimum": 0, "description": "Metres; a mountain package's may be fractional (`2.5`)." },
         "rocks_maxzoom": { "$ref": "#/$defs/zoom" },
         "rock_slope": { "type": "integer", "minimum": 0, "description": "Degrees." },
         "dem_source": { "type": "string" },
@@ -74,6 +74,11 @@
           "type": "object",
           "additionalProperties": { "$ref": "#/$defs/area" },
           "description": "Slug → cut-out."
+        },
+        "mountains": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/area" },
+          "description": "A country's mountain packages, slug → mountain: finer contours, rocks and height model over one range, drawn over the regions it crosses."
         }
       }
     },
