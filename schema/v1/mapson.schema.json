@@ -297,6 +297,7 @@
             "overlay": {
               "type": "string",
               "enum": ["cartography", "hillshading", "heightModel", "contours", "rocks",
+                       "aerialSummer", "aerialWinter",
                        "roads", "paths", "points", "boundaries", "water", "railways",
                        "history", "settlements",
                        "contoursRocks", "roadsPaths", "hillshade", "terrain3D", "trails",

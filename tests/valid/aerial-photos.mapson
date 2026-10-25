@@ -1,0 +1,38 @@
+{
+  "$schema": "https://raw.githubusercontent.com/skifahrer/schemas/master/schema/v1/mapson.schema.json",
+  "_schemaVersion": 1,
+  "id": "5A1D2286-0000-4000-A000-000000000001",
+  "name": "Tatras from the air",
+  "isBuiltIn": false,
+  "drawsRegions": false,
+  "isOnlineOnly": false,
+  "stack": [
+    {
+      "id": "5A1D2286-0000-4000-A000-000000000002",
+      "name": "Summer aerial photos",
+      "symbol": "sun.max.fill",
+      "role": "base",
+      "opacity": 1,
+      "isEnabled": true,
+      "source": {
+        "region": {
+          "overlay": "aerialSummer"
+        }
+      }
+    },
+    {
+      "id": "5A1D2286-0000-4000-A000-000000000003",
+      "name": "Winter aerial photos",
+      "symbol": "snowflake",
+      "role": "overlay",
+      "opacity": 1,
+      "isEnabled": false,
+      "source": {
+        "region": {
+          "overlay": "aerialWinter"
+        }
+      }
+    }
+  ],
+  "styles": []
+}

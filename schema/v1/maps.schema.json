@@ -2,22 +2,36 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/skifahrer/schemas/master/schema/v1/maps.schema.json",
   "title": "maps.json v1",
-  "description": "The region catalog skifahrer/maptiles publishes: countries, their regions, subregions and mountains, and each one's downloadable packages. Keys starting with `_` are metadata; every other top-level key is a country.",
+  "description": "The region catalog skifahrer/maptiles publishes: countries, their regions and subregions, the mountains category with its ranges, and each one's downloadable packages. Keys starting with `_` are metadata; `mountains` is the category of ranges; every other top-level key is a country.",
   "type": "object",
   "properties": {
     "$schema": { "type": "string", "description": "The schema the file follows: this schema's $id." },
     "_comment": { "type": "string" },
     "_updated_at": { "$ref": "#/$defs/isoDate", "description": "When the pipeline last wrote the catalog." },
-    "_updated_ts": { "type": "integer", "minimum": 0, "description": "The same instant, Unix seconds." }
+    "_updated_ts": { "type": "integer", "minimum": 0, "description": "The same instant, Unix seconds." },
+    "mountains": { "$ref": "#/$defs/mountains" }
   },
   "patternProperties": {
     "^_": { "description": "Other catalog metadata. Readers ignore what they don't know." }
   },
   "additionalProperties": { "$ref": "#/$defs/area" },
   "$defs": {
+    "mountains": {
+      "type": "object",
+      "description": "The mountains category, beside the countries: ranges in finer detail, each a package of its own that a range may carry across a border.",
+      "properties": {
+        "id": { "$ref": "mapson.schema.json#/$defs/regionId", "description": "`mountains`." },
+        "name": { "type": "string", "description": "Shown by the app, in English." },
+        "ranges": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/area" },
+          "description": "Slug → range: finer contours, rocks, height model, roads, paths and aerial photos over one range, drawn alone or over the regions it crosses."
+        }
+      }
+    },
     "area": {
       "type": "object",
-      "description": "A country, region, subregion or mountain package. A country names its `regions` and `mountains`; any area may name `subregions`.",
+      "description": "A country, region, subregion or range. A country names its `regions`; any area may name `subregions`.",
       "properties": {
         "id": {
           "$ref": "mapson.schema.json#/$defs/regionId",
@@ -26,6 +40,7 @@
         "name": { "type": "string",
           "description": "Shown by the app: a country in English, a region or subregion in its own language." },
         "drive": { "type": "string", "description": "Its folder on the pipeline's Drive." },
+        "country": { "type": "string", "description": "A range's: the country key whose data it is made of." },
         "updated_at": { "$ref": "#/$defs/isoDate" },
         "updated_ts": { "type": "integer", "minimum": 0 },
         "run": { "type": "string", "description": "The CI run that built it." },
@@ -50,6 +65,8 @@
         "water_maxzoom": { "$ref": "#/$defs/zoom" },
         "rail_maxzoom": { "$ref": "#/$defs/zoom" },
         "buildings_maxzoom": { "$ref": "#/$defs/zoom" },
+        "aerial_summer_maxzoom": { "$ref": "#/$defs/zoom" },
+        "aerial_winter_maxzoom": { "$ref": "#/$defs/zoom" },
         "layers": {
           "type": "array",
           "items": { "type": "string" },
@@ -78,7 +95,7 @@
         "mountains": {
           "type": "object",
           "additionalProperties": { "$ref": "#/$defs/area" },
-          "description": "A country's mountain packages, slug → mountain: finer contours, rocks and height model over one range, drawn over the regions it crosses."
+          "description": "Ranges as catalogs before the mountains category listed them, under their country; read like `mountains.ranges`."
         }
       }
     },
