@@ -402,19 +402,27 @@ ranges, and each one's packages with a download per container format.
 ### Mountains
 
 The top-level `mountains` is no country but a category of its own: under `ranges`, one range each,
-in more detail than the regions carry — 2.5 m contours, rocks and a height model from the 1 m
-LiDAR, roads and paths, and aerial photos of summer and winter. A range has the shape of a region
+in more detail than the regions carry — 2 m contours, rocks and a height model from the 1 m
+LiDAR, roads, paths, water, points and aerial photos of summer and winter. A range has the shape of a region
 (`bbox`, zooms, `tiles`, `maps`), with only its own packages (`contours`, `rocks`, `terrain`,
-`roads`, `paths`, `trails`, `aerial_summer`, `aerial_winter`), `country`, the country key whose
+`roads`, `paths`, `water`, `points`, `aerial_summer`, `aerial_winter`), `country`, the country key whose
 data it is mostly made of, and `countries`, every country it lies in (`["SK", "PL"]`). It needs no base map: it is drawn alone, or over the regions it crosses, in their
 place where it has data. A range may cross a region or a state border, which is why it belongs
 to no country.
+
+A map draws the ranges through one `mountains` layer. Its `hiddenParts` leaves some off them —
+`hillshading`, `heightModel`, `contours`, `rocks`, `roads`, `paths`, `water`, `points`,
+`aerialSummer`, `aerialWinter` — and a map holding it covers `mountains`:
+
+```jsonc
+{ "source": { "region": { "overlay": "mountains" } }, "hiddenParts": ["aerialWinter"] }
+```
 
 ```jsonc
 "mountains": { "id": "mountains", "name": "Mountains",
   "ranges": {
     "vysoke_tatry": { "id": "mountains-vysoke_tatry", "name": "Vysoké Tatry",
-      "country": "slovensko", "bbox": [19.9, 49.09, 20.32, 49.25], "contour_interval": 2.5,
+      "country": "slovensko", "bbox": [19.9, 49.09, 20.32, 49.25], "contour_interval": 2,
       "maps": { "terrain": { "download": "…" }, "roads": { "download": "…" },
                 "aerial_summer": { "download": "…" } } } } }
 ```

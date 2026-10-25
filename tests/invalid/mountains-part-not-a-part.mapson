@@ -1,0 +1,31 @@
+{
+  "$schema": "https://raw.githubusercontent.com/skifahrer/schemas/master/schema/v1/mapson.schema.json",
+  "_schemaVersion": 1,
+  "id": "5A1D2319-0000-4000-A000-000000000001",
+  "name": "Tatras",
+  "isBuiltIn": false,
+  "drawsRegions": false,
+  "isOnlineOnly": false,
+  "coverage": {
+    "mountains": true
+  },
+  "stack": [
+    {
+      "id": "5A1D2319-0000-4000-A000-000000000002",
+      "name": "Mountains",
+      "symbol": "mountain.2.fill",
+      "role": "base",
+      "opacity": 1,
+      "isEnabled": true,
+      "hiddenParts": [
+        "boundaries"
+      ],
+      "source": {
+        "region": {
+          "overlay": "mountains"
+        }
+      }
+    }
+  ],
+  "styles": []
+}
