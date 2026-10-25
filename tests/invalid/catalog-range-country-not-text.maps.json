@@ -1,0 +1,8 @@
+{
+  "mountains": {
+    "id": "mountains",
+    "ranges": {
+      "vysoke_tatry": { "id": "mountains-vysoke_tatry", "country": 703 }
+    }
+  }
+}

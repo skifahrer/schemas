@@ -1,0 +1,46 @@
+{
+  "_updated_at": "2026-10-25T09:00:00Z",
+  "_updated_ts": 1792918800,
+  "slovensko": {
+    "id": "slovakia",
+    "name": "Slovakia",
+    "regions": {
+      "presovsky": { "id": "slovakia-presovsky", "name": "Prešovský kraj" }
+    }
+  },
+  "mountains": {
+    "id": "mountains",
+    "name": "Mountains",
+    "ranges": {
+      "vysoke_tatry": {
+        "id": "mountains-vysoke_tatry",
+        "name": "Vysoké Tatry",
+        "country": "slovensko",
+        "drive": "mountains/vysoke_tatry",
+        "bbox": [19.9, 49.09, 20.32, 49.25],
+        "contour_interval": 2.5,
+        "terrain_maxzoom": 16,
+        "transport_maxzoom": 14,
+        "paths_maxzoom": 14,
+        "aerial_summer_maxzoom": 17,
+        "tiles": {
+          "terrain": "tiles/vysoke_tatry-terrain.pmtiles",
+          "transport": "tiles/vysoke_tatry-transport.pmtiles",
+          "paths": "tiles/vysoke_tatry-paths.pmtiles",
+          "aerial_summer": "tiles/vysoke_tatry-aerial_summer.pmtiles"
+        },
+        "maps": {
+          "terrain": { "download": "https://drive.google.com/uc?export=download&id=1abe" },
+          "roads": { "download": "https://drive.google.com/uc?export=download&id=1abf" },
+          "paths": { "download": "https://drive.google.com/uc?export=download&id=1abg" },
+          "aerial_summer": {
+            "download": "https://drive.google.com/uc?export=download&id=1abh",
+            "formats": {
+              "aar": { "download": "https://drive.google.com/uc?export=download&id=1abi", "file": "vysoke_tatry-aerial_summer.aar" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

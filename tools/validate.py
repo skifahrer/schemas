@@ -101,7 +101,7 @@ def catalog_issues(validator, data):
             found.append(f"{where}: id {area['id']} is also {seen[area['id']]}")
         elif "id" in area:
             seen[area["id"]] = where
-        for nest in ("regions", "subregions", "mountains"):
+        for nest in ("regions", "subregions", "mountains", "ranges"):
             pending += [(f"{where}.{nest}.{k}", v) for k, v in (area.get(nest) or {}).items()]
     return sorted(found)
 

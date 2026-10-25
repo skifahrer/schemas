@@ -1,0 +1,14 @@
+{
+  "slovensko": {
+    "id": "slovakia",
+    "regions": {
+      "presovsky": { "id": "slovakia-presovsky" }
+    }
+  },
+  "mountains": {
+    "id": "mountains",
+    "ranges": {
+      "vysoke_tatry": { "id": "slovakia-presovsky" }
+    }
+  }
+}

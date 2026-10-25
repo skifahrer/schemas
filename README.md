@@ -336,8 +336,8 @@ is a mapspack.
 ## maps.json
 
 The region catalog [skifahrer/maptiles](https://github.com/skifahrer/maptiles) publishes and Riki
-Maps downloads from: countries, their regions, subregions and mountains, and each one's packages
-with a download per container format.
+Maps downloads from: countries, their regions and subregions, the mountains category with its
+ranges, and each one's packages with a download per container format.
 
 | | |
 |---|---|
@@ -356,7 +356,8 @@ with a download per container format.
 }
 ```
 
-- Keys starting with `_` are metadata; every other top-level key is a country.
+- Keys starting with `_` are metadata; [`mountains`](#mountains) is the category of ranges; every
+  other top-level key is a country.
 - Every country, region and subregion has an [`id`](#region-ids), unique across the catalog.
 - `name` is what the app shows: a country in English (`Slovakia`), a region or subregion in its
   own language (`Banskobystrický kraj`, `Niederösterreich`).
@@ -369,22 +370,27 @@ with a download per container format.
 
 ### Mountains
 
-A country may list mountain packages under `mountains`, beside its `regions`: one range in more
-detail than its regions carry — 2.5 m contours, rocks and a height model from the 1 m LiDAR. A
-mountain has the shape of a region (`bbox`, zooms, `tiles`, `maps`), with only the packages it
-adds: `contours`, `rocks`, `terrain`. It is drawn over the regions it crosses, in their place
-where it has data; a range may cross a region border, which is why it sits under the country.
+The top-level `mountains` is no country but a category of its own: under `ranges`, one range each,
+in more detail than the regions carry — 2.5 m contours, rocks and a height model from the 1 m
+LiDAR, roads and paths, and aerial photos of summer and winter. A range has the shape of a region
+(`bbox`, zooms, `tiles`, `maps`), with only its own packages (`contours`, `rocks`, `terrain`,
+`roads`, `paths`, `aerial_summer`, `aerial_winter`), and `country`, the country key whose data it
+is made of. It needs no base map: it is drawn alone, or over the regions it crosses, in their
+place where it has data. A range may cross a region or a state border, which is why it belongs
+to no country.
 
 ```jsonc
-"slovensko": { "regions": { /* … */ },
-  "mountains": {
-    "vysoke_tatry": { "id": "slovakia-vysoke_tatry", "name": "Vysoké Tatry",
-      "bbox": [19.9, 49.09, 20.32, 49.25], "contour_interval": 2.5, "terrain_maxzoom": 16,
-      "maps": { "contours": { "download": "…" }, "rocks": { "download": "…" },
-                "terrain": { "download": "…" } } } } }
+"mountains": { "id": "mountains", "name": "Mountains",
+  "ranges": {
+    "vysoke_tatry": { "id": "mountains-vysoke_tatry", "name": "Vysoké Tatry",
+      "country": "slovensko", "bbox": [19.9, 49.09, 20.32, 49.25], "contour_interval": 2.5,
+      "maps": { "terrain": { "download": "…" }, "roads": { "download": "…" },
+                "aerial_summer": { "download": "…" } } } } }
 ```
 
-Its id is the country's and its key, joined by `-`, unique with the region ids.
+Its id is `mountains` and its key, joined by `-`, unique with the region ids. Catalogs written
+before the category listed ranges under their country's `mountains` (`slovakia-vysoke_tatry`);
+a reader takes those as ranges of that country.
 
 ### Region ids
 
@@ -401,8 +407,8 @@ so `-` only ever separates levels.
 | `north-america/us-west/california-latest.osm.pbf` | `us_west-california` |
 | `russia/central_federal_district-latest.osm.pbf` | `russia-central_federal_district` |
 
-A subregion (a cut-out) adds its key to its region's id: `slovakia-presovsky-pieniny`; a mountain
-adds its key to its country's: `slovakia-vysoke_tatry`. What osm.fr doesn't publish takes a name
+A subregion (a cut-out) adds its key to its region's id: `slovakia-presovsky-pieniny`; a range
+adds its key to the category's: `mountains-vysoke_tatry`. What osm.fr doesn't publish takes a name
 of its own (`world`). OpenStreetMap has no such id of its own: a
 boundary relation's number is unique but opaque, and ISO 3166-2 codes cover only official
 subdivisions, not osm.fr's groupings or cut-outs. `tools/validate.py` refuses a catalog that
