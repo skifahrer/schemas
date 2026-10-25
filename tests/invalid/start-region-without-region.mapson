@@ -1,0 +1,12 @@
+{
+  "id": "0834FFB7-67BA-4327-87F2-E18AEE11B2FC",
+  "name": "Tatry",
+  "isBuiltIn": false,
+  "drawsRegions": true,
+  "isOnlineOnly": false,
+  "start": {
+    "kind": "region"
+  },
+  "stack": [],
+  "styles": []
+}

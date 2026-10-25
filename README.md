@@ -96,31 +96,62 @@ Keys are language tags as Apple's `.lproj` folders name them (`de`, `pt-BR`, `zh
 shows the text for the language it runs in (`pt-BR` also takes `pt`), else `name` or `note`. The
 texts travel with the map: a file, iCloud, a shared map.
 
-### Regions a layer needs
+### Regions a layer requires
 
-A `region` layer may name the [maps.json](#mapsjson) regions it needs, by [id](#region-ids):
+A `region` layer may name the [maps.json](#mapsjson) regions and ranges it requires, by
+[id](#region-ids), and whole countries:
 
 ```jsonc
 { "source": { "region": { "overlay": "cartography" } },
-  "requiredRegions": ["slovakia-presovsky", "slovakia-zilinsky"] }
+  "requiredRegions": ["slovakia-presovsky", "mountains-vysoke_tatry"],
+  "requiredCountries": ["AT"] }
 ```
 
-A reader that opens the map offers to download those it doesn't hold. The list travels with the
-map wherever it goes: a file, iCloud, a shared map.
+The map always covers them, and a reader shows it only once each is downloaded for that layer's
+package, saying how far the downloads are. The lists travel with the map wherever it goes: a
+file, iCloud, a shared map.
 
 ### Where a map works
 
-`coverage` says where the map has its features and tiles: the whole world, whole countries
-(ISO 3166-1 alpha-2, upper case), parts of countries (maps.json [ids](#region-ids)), or
-countries and regions together. Riki Maps asks for it when a map is sent to the gallery, whose
-chips filter by it.
+`coverage` says where the map has its features and tiles. It takes places in — the whole
+world, continents, every mountain range (`mountains`), whole countries (ISO 3166-1 alpha-2, upper
+case), parts of countries and ranges (maps.json [ids](#region-ids)) — and `exclude` leaves places
+out of them, named the same way. A reader draws and downloads only what it covers, keeps the
+camera inside it, and asks online layers nothing outside it. Riki Maps also asks for it when a
+map is sent to the gallery, whose chips filter by it.
 
 ```jsonc
 { "coverage": { "world": true } }
 { "coverage": { "countries": ["SK", "PL"], "regions": ["austria-burgenland"] } }
+{ "coverage": { "mountains": true, "exclude": { "world": true } } }
+{ "coverage": { "continents": ["europe"] } }
+{ "coverage": { "exclude": { "continents": ["asia", "africa", "north-america",
+                                             "south-america", "oceania", "antarctica"] } } }
 ```
 
-With `world` true, `countries` and `regions` are not read. Absent says nothing about it.
+The most specific rule naming a place decides: world, then continent, then country or the
+mountains, then region, a subregion before its region. Leaving out wins a tie. So the third
+example is only the mountains, and the last two are both Europe: with nothing taken in,
+`exclude` leaves out of the whole world. A range no rule names goes with its country. With
+`world` true and nothing left out, the other lists are not read. Choices that leave no place at
+all are allowed in the file; Riki Maps warns while they are made. Absent says nothing about it.
+Continents are read from countries' codes; Russia counts as Europe, Turkey as Asia.
+
+### Where a map opens
+
+`start` says where the camera goes when a reader opens the map, at launch and whenever they
+switch to it: where the reader is, a point at a zoom, a maps.json region, a whole country, or a
+state or city found by name, kept as its point and box. Absent keeps the camera where it is.
+The map's coverage still bounds where the camera can go.
+
+```jsonc
+{ "start": { "kind": "location" } }
+{ "start": { "kind": "coordinates", "latitude": 49.18, "longitude": 20.08, "zoom": 12.5 } }
+{ "start": { "kind": "region", "region": "slovakia-presovsky" } }
+{ "start": { "kind": "country", "country": "SK" } }
+{ "start": { "kind": "city", "latitude": 48.1486, "longitude": 17.1077, "name": "Bratislava",
+             "country": "SK", "box": { "minLon": 16.95, "minLat": 48.0, "maxLon": 17.3, "maxLat": 48.3 } } }
+```
 
 ### Keys left out, and how to get them
 
