@@ -5,7 +5,10 @@
     "id": "slovakia",
     "name": "Slovakia",
     "regions": {
-      "presovsky": { "id": "slovakia-presovsky", "name": "Prešovský kraj" }
+      "presovsky": {
+        "id": "slovakia-presovsky",
+        "name": "Prešovský kraj"
+      }
     }
   },
   "mountains": {
@@ -17,7 +20,12 @@
         "name": "Vysoké Tatry",
         "country": "slovensko",
         "drive": "mountains/vysoke_tatry",
-        "bbox": [19.9, 49.09, 20.32, 49.25],
+        "bbox": [
+          19.9,
+          49.09,
+          20.32,
+          49.25
+        ],
         "contour_interval": 2.5,
         "terrain_maxzoom": 16,
         "transport_maxzoom": 14,
@@ -30,16 +38,32 @@
           "aerial_summer": "tiles/vysoke_tatry-aerial_summer.pmtiles"
         },
         "maps": {
-          "terrain": { "download": "https://drive.google.com/uc?export=download&id=1abe" },
-          "roads": { "download": "https://drive.google.com/uc?export=download&id=1abf" },
-          "paths": { "download": "https://drive.google.com/uc?export=download&id=1abg" },
+          "terrain": {
+            "download": "https://drive.google.com/uc?export=download&id=1abe"
+          },
+          "roads": {
+            "download": "https://drive.google.com/uc?export=download&id=1abf"
+          },
+          "paths": {
+            "download": "https://drive.google.com/uc?export=download&id=1abg"
+          },
           "aerial_summer": {
             "download": "https://drive.google.com/uc?export=download&id=1abh",
             "formats": {
-              "aar": { "download": "https://drive.google.com/uc?export=download&id=1abi", "file": "vysoke_tatry-aerial_summer.aar" }
+              "aar": {
+                "download": "https://drive.google.com/uc?export=download&id=1abi",
+                "file": "vysoke_tatry-aerial_summer.aar"
+              }
             }
+          },
+          "trails": {
+            "download": "https://drive.google.com/uc?export=download&id=1abj"
           }
-        }
+        },
+        "countries": [
+          "SK",
+          "PL"
+        ]
       }
     }
   }

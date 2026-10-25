@@ -25,7 +25,7 @@
         "ranges": {
           "type": "object",
           "additionalProperties": { "$ref": "#/$defs/area" },
-          "description": "Slug → range: finer contours, rocks, height model, roads, paths and aerial photos over one range, drawn alone or over the regions it crosses."
+          "description": "Slug → range: finer contours, rocks, height model, roads, paths, waymarked trails and aerial photos over one range, across borders, drawn alone or over the regions it crosses."
         }
       }
     },
@@ -40,7 +40,12 @@
         "name": { "type": "string",
           "description": "Shown by the app: a country in English, a region or subregion in its own language." },
         "drive": { "type": "string", "description": "Its folder on the pipeline's Drive." },
-        "country": { "type": "string", "description": "A range's: the country key whose data it is made of." },
+        "country": { "type": "string", "description": "A range's: the country key whose data it is mostly made of." },
+        "countries": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^[A-Z]{2}$" },
+          "description": "A range's: every country it lies in, ISO 3166-1 alpha-2; a range may cross a border."
+        },
         "updated_at": { "$ref": "#/$defs/isoDate" },
         "updated_ts": { "type": "integer", "minimum": 0 },
         "run": { "type": "string", "description": "The CI run that built it." },

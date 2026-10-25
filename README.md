@@ -374,8 +374,8 @@ The top-level `mountains` is no country but a category of its own: under `ranges
 in more detail than the regions carry — 2.5 m contours, rocks and a height model from the 1 m
 LiDAR, roads and paths, and aerial photos of summer and winter. A range has the shape of a region
 (`bbox`, zooms, `tiles`, `maps`), with only its own packages (`contours`, `rocks`, `terrain`,
-`roads`, `paths`, `aerial_summer`, `aerial_winter`), and `country`, the country key whose data it
-is made of. It needs no base map: it is drawn alone, or over the regions it crosses, in their
+`roads`, `paths`, `trails`, `aerial_summer`, `aerial_winter`), `country`, the country key whose
+data it is mostly made of, and `countries`, every country it lies in (`["SK", "PL"]`). It needs no base map: it is drawn alone, or over the regions it crosses, in their
 place where it has data. A range may cross a region or a state border, which is why it belongs
 to no country.
 
