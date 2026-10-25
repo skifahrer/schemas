@@ -32,6 +32,19 @@
           "overlay": "aerialWinter"
         }
       }
+    },
+    {
+      "id": "5A1D2286-0000-4000-A000-000000000004",
+      "name": "Waymarked trails",
+      "symbol": "figure.hiking",
+      "role": "overlay",
+      "opacity": 1,
+      "isEnabled": true,
+      "source": {
+        "region": {
+          "overlay": "waymarked"
+        }
+      }
     }
   ],
   "styles": []
