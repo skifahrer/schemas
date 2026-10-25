@@ -64,6 +64,7 @@
         "requiresUnlock": { "type": "boolean", "description": "Whether Face ID, Touch ID or the device passcode is asked before the map is shown or edited; absent opens it freely." },
         "access": { "$ref": "#/$defs/access" },
         "coverage": { "$ref": "#/$defs/coverage" },
+        "start": { "$ref": "#/$defs/mapStart" },
         "fromUnsignedFile": { "type": "boolean", "description": "Whether the map came in from a file Riki Maps did not sign; such a map is never published to the gallery, and the mark travels with every copy." },
         "esriServices": {
           "type": "array",
@@ -139,9 +140,27 @@
     },
     "coverage": {
       "type": "object",
-      "description": "Where the map has its features and tiles. Absent says nothing about it.",
+      "description": "Where the map has its features and tiles: the places it takes in, and those `exclude` leaves out of them. A place is covered when the most specific rule naming it takes it in: world, then continent, then country or the mountains, then region (a subregion beats its region). Leaving out wins a tie. With nothing taken in, `exclude` leaves out of the whole world. A range no rule names goes with its country. Absent says nothing about it.",
+      "allOf": [{ "$ref": "#/$defs/coveragePlaces" }],
       "properties": {
-        "world": { "type": "boolean", "description": "Everywhere: `countries` and `regions` are then not read." },
+        "exclude": {
+          "$ref": "#/$defs/coveragePlaces",
+          "description": "Places left out of what the map takes in; leaving out the world and taking in the mountains leaves only the mountains."
+        }
+      }
+    },
+    "coveragePlaces": {
+      "type": "object",
+      "description": "One side of a coverage: the places it takes in, or under `exclude`, leaves out.",
+      "properties": {
+        "world": { "type": "boolean", "description": "Everywhere. With nothing left out the other lists are not read; with something left out they take places back in." },
+        "continents": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/continent" },
+          "uniqueItems": true,
+          "description": "Whole continents, read from their countries' ISO codes."
+        },
+        "mountains": { "type": "boolean", "description": "Every range of maps.json's mountains category." },
         "countries": {
           "type": "array",
           "items": { "$ref": "#/$defs/countryCode" },
@@ -152,9 +171,39 @@
           "type": "array",
           "items": { "$ref": "#/$defs/regionId" },
           "uniqueItems": true,
-          "description": "Parts of countries, by their maps.json id."
+          "description": "Parts of countries and mountain ranges, by their maps.json id."
         }
       }
+    },
+    "continent": {
+      "type": "string",
+      "enum": ["europe", "asia", "africa", "north-america", "south-america", "oceania", "antarctica"],
+      "description": "A continent; Russia counts as Europe, Turkey as Asia."
+    },
+    "mapStart": {
+      "type": "object",
+      "description": "Where the map opens, at launch and whenever a reader switches to it. Absent keeps the camera where it is. Its coverage still bounds where the camera can go.",
+      "required": ["kind"],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["location", "coordinates", "region", "country", "state", "city"],
+          "description": "`location` is where the reader is, when they allow it; `coordinates` a point at a zoom; `region` a maps.json region; `country` a whole country; `state` and `city` a place found by name, kept as its point and box."
+        },
+        "latitude": { "type": "number", "minimum": -90, "maximum": 90, "description": "WGS84, for `coordinates`, `state` and `city`." },
+        "longitude": { "type": "number", "minimum": -180, "maximum": 180, "description": "WGS84, for `coordinates`, `state` and `city`." },
+        "zoom": { "type": "number", "minimum": 0, "maximum": 22, "description": "The zoom it opens at; absent takes the box, else the kind's own." },
+        "region": { "$ref": "#/$defs/regionId", "description": "For `region`." },
+        "country": { "$ref": "#/$defs/countryCode", "description": "For `country`; for `state` and `city`, the country it lies in." },
+        "name": { "type": "string", "description": "A state's or a city's name, as it was found." },
+        "box": { "$ref": "#/$defs/geoBox", "description": "Around the state or city; opened whole when there is no `zoom`." }
+      },
+      "allOf": [
+        { "if": { "properties": { "kind": { "enum": ["coordinates", "state", "city"] } } },
+          "then": { "required": ["latitude", "longitude"] } },
+        { "if": { "properties": { "kind": { "const": "region" } } }, "then": { "required": ["region"] } },
+        { "if": { "properties": { "kind": { "const": "country" } } }, "then": { "required": ["country"] } }
+      ]
     },
     "countryCode": {
       "type": "string",
@@ -240,7 +289,13 @@
           "type": "array",
           "items": { "$ref": "#/$defs/regionId" },
           "uniqueItems": true,
-          "description": "Regions of maps.json a `region` layer needs downloaded before the map is used; readers offer to download those missing. Absent or empty: none."
+          "description": "Regions and ranges of maps.json a `region` layer requires: the map always covers them, and is not shown until each is downloaded. Absent or empty: none."
+        },
+        "requiredCountries": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/countryCode" },
+          "uniqueItems": true,
+          "description": "Whole countries a `region` layer requires, every region of each, read as `requiredRegions` is."
         },
         "originURL": { "type": "string", "description": "Where the layer's features were fetched from." },
         "referrer": { "type": "string" },

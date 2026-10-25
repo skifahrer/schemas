@@ -1,0 +1,26 @@
+{
+  "id": "0834FFB7-67BA-4327-87F2-E18AEE11B2FC",
+  "name": "Tatry",
+  "isBuiltIn": false,
+  "drawsRegions": true,
+  "isOnlineOnly": false,
+  "stack": [
+    {
+      "id": "1C1E1B66-7B62-4D7E-9E36-4B0D7C7D2F10",
+      "name": "Base map",
+      "symbol": "map",
+      "role": "base",
+      "opacity": 1,
+      "isEnabled": true,
+      "source": {
+        "region": {
+          "overlay": "cartography"
+        }
+      },
+      "requiredCountries": [
+        "sk"
+      ]
+    }
+  ],
+  "styles": []
+}

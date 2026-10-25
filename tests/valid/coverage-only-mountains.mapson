@@ -1,0 +1,15 @@
+{
+  "id": "0834FFB7-67BA-4327-87F2-E18AEE11B2FC",
+  "name": "Hory",
+  "isBuiltIn": false,
+  "drawsRegions": true,
+  "isOnlineOnly": false,
+  "coverage": {
+    "mountains": true,
+    "exclude": {
+      "world": true
+    }
+  },
+  "stack": [],
+  "styles": []
+}

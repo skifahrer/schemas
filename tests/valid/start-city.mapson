@@ -1,0 +1,22 @@
+{
+  "id": "0834FFB7-67BA-4327-87F2-E18AEE11B2FC",
+  "name": "Bratislava",
+  "isBuiltIn": false,
+  "drawsRegions": true,
+  "isOnlineOnly": false,
+  "start": {
+    "kind": "city",
+    "latitude": 48.1486,
+    "longitude": 17.1077,
+    "name": "Bratislava",
+    "country": "SK",
+    "box": {
+      "minLon": 16.95,
+      "minLat": 48.0,
+      "maxLon": 17.3,
+      "maxLat": 48.3
+    }
+  },
+  "stack": [],
+  "styles": []
+}

@@ -1,0 +1,15 @@
+{
+  "id": "0834FFB7-67BA-4327-87F2-E18AEE11B2FC",
+  "name": "Tatry",
+  "isBuiltIn": false,
+  "drawsRegions": true,
+  "isOnlineOnly": false,
+  "start": {
+    "kind": "coordinates",
+    "latitude": 49.18,
+    "longitude": 20.08,
+    "zoom": 12.5
+  },
+  "stack": [],
+  "styles": []
+}
