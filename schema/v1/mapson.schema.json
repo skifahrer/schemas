@@ -280,6 +280,16 @@
         "darkensInDarkMode": { "type": "boolean" },
         "hidesRouteIcons": { "type": "boolean" },
         "hidesTrails": { "type": "boolean" },
+        "hiddenParts": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["hillshading", "heightModel", "contours", "rocks", "roads", "paths",
+                     "water", "points", "aerialSummer", "aerialWinter"]
+          },
+          "uniqueItems": true,
+          "description": "The parts a `mountains` layer leaves off its ranges. Absent or empty draws every part."
+        },
         "drawsDetailedRailways": { "type": "boolean" },
         "labelLanguage": {
           "type": "string",
@@ -354,7 +364,7 @@
               "enum": ["cartography", "hillshading", "heightModel", "contours", "rocks",
                        "aerialSummer", "aerialWinter", "waymarked",
                        "roads", "paths", "points", "boundaries", "water", "railways",
-                       "history", "settlements",
+                       "history", "settlements", "mountains",
                        "contoursRocks", "roadsPaths", "hillshade", "terrain3D", "trails",
                        "pistes", "features"],
               "description": "A region package. The last seven are legacy names, still read: `roadsPaths` reads as `roads`, `contoursRocks` as `contours`."

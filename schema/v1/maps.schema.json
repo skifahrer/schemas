@@ -25,7 +25,7 @@
         "ranges": {
           "type": "object",
           "additionalProperties": { "$ref": "#/$defs/area" },
-          "description": "Slug → range: finer contours, rocks, height model, roads, paths, waymarked trails and aerial photos over one range, across borders, drawn alone or over the regions it crosses."
+          "description": "Slug → range: finer contours, rocks, height model, roads, paths, water, points and aerial photos over one range, across borders, drawn alone or over the regions it crosses."
         }
       }
     },
