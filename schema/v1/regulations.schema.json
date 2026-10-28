@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/skifahrer/schemas/master/schema/v1/regulations.schema.json",
+  "title": "traffic regulations v1, one country",
+  "description": "What a country's traffic law sets where no sign says otherwise, in skifahrer/traffic-signs: `regulations/<country>.json`. The map pipeline marks each road with its context (`urban`, `motorway`, …); Riki Maps reads the limit for that context and the vehicle from here, so a change in the law is a change of this file, not a new map.",
+  "type": "object",
+  "required": ["country", "law", "speed"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string", "description": "The schema the file follows: this schema's $id." },
+    "country": {
+      "$ref": "https://raw.githubusercontent.com/skifahrer/schemas/master/schema/v1/sign.schema.json#/$defs/country",
+      "description": "The country whose law this is, the same as the file's name."
+    },
+    "unit": {
+      "enum": ["km/h", "mph"],
+      "default": "km/h",
+      "description": "The unit of every speed in the file. Absent means km/h."
+    },
+    "law": { "$ref": "#/$defs/law" },
+    "speed": {
+      "type": "object",
+      "description": "The highest speed the law allows in each road context. Every context is listed, even where it repeats another, so a reader never guesses.",
+      "required": ["urban", "rural", "motorway", "urban_motorway", "motorroad", "urban_motorroad", "living_street"],
+      "additionalProperties": false,
+      "properties": {
+        "urban": { "$ref": "#/$defs/limit", "description": "A built-up area (`obec`, `Ortsgebiet`): between the signs that begin and end it." },
+        "rural": { "$ref": "#/$defs/limit", "description": "Outside a built-up area." },
+        "motorway": { "$ref": "#/$defs/limit", "description": "A motorway (`highway=motorway`) outside a built-up area." },
+        "urban_motorway": { "$ref": "#/$defs/limit", "description": "A motorway inside a built-up area." },
+        "motorroad": { "$ref": "#/$defs/limit", "description": "A road for motor vehicles only that is not a motorway (`motorroad=yes`: `cesta pre motorové vozidlá`, `Kraftfahrstraße`), outside a built-up area." },
+        "urban_motorroad": { "$ref": "#/$defs/limit", "description": "The same inside a built-up area." },
+        "living_street": { "$ref": "#/$defs/limit", "description": "A living street, pedestrian or school zone: where pedestrians may use the whole road." }
+      }
+    }
+  },
+  "$defs": {
+    "law": {
+      "type": "object",
+      "description": "Where the numbers were read, so anyone can check them against the law.",
+      "required": ["name", "url", "version"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "description": "The law as the country cites it: `Zákon č. 8/2009 Z. z. o cestnej premávke`." },
+        "url": { "type": "string", "format": "uri", "description": "Its official text." },
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+          "description": "The day from which the text that was read is in force, `YYYY-MM-DD`."
+        }
+      }
+    },
+    "speed": {
+      "anyOf": [
+        { "type": "integer", "minimum": 5, "maximum": 200 },
+        { "type": "null" }
+      ],
+      "description": "In the file's unit; null where the law sets no limit (Germany's motorways)."
+    },
+    "limit": {
+      "type": "object",
+      "description": "The limit for any vehicle the law does not single out, and for those it does. A vehicle left out drives at `default`.",
+      "required": ["default", "section"],
+      "additionalProperties": false,
+      "properties": {
+        "default": { "$ref": "#/$defs/speed", "description": "A car, a motorcycle and a van up to 3.5 t without a trailer." },
+        "motorcycle": { "$ref": "#/$defs/speed", "description": "A motorcycle, where it differs from a car." },
+        "bus": { "$ref": "#/$defs/speed", "description": "A bus." },
+        "hgv": { "$ref": "#/$defs/speed", "description": "A vehicle over 3.5 t." },
+        "trailer": { "$ref": "#/$defs/speed", "description": "A vehicle up to 3.5 t with a trailer, a caravan among them." },
+        "section": { "type": "string", "minLength": 1, "description": "Where in the law the numbers are: `§ 16 ods. 2, 3`." }
+      }
+    }
+  }
+}
