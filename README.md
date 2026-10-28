@@ -32,6 +32,7 @@ And the files of [skifahrer/traffic-signs](#traffic-signs):
 | [`<sign>-<country>.json`](#one-countrys-sign) | one country's version of a sign: its code, image and source | [`sign.schema.json`](schema/v1/sign.schema.json) |
 | [`<sign>.json`](#a-signs-names) | a sign's names, one per language | [`sign-names.schema.json`](schema/v1/sign-names.schema.json) |
 | [`data.json`](#the-viewers-datajson) | everything the traffic signs viewer shows | [`signs-data.schema.json`](schema/v1/signs-data.schema.json) |
+| [`<country>.json`](#a-countrys-regulations) | a country's default speeds, by road context and vehicle | [`regulations.schema.json`](schema/v1/regulations.schema.json) |
 
 Every schema is published at
 `https://raw.githubusercontent.com/skifahrer/schemas/master/schema/v1/<name>.schema.json`.
@@ -527,10 +528,50 @@ to compare), and `signs`, each with its `names` and per country its `code`, `ima
 from the site root), licence, author, source, `valid_until` and `archived` images. A variant
 (`crosswind-from-left`) names its sign in `variant_of`; the sign lists it in `variants`.
 
+### A country's regulations
+
+| | |
+|---|---|
+| Schema | [`schema/v1/regulations.schema.json`](schema/v1/regulations.schema.json) |
+| Example | [`examples/sk.regulations.json`](examples/sk.regulations.json) |
+
+`regulations/<country>.json`: what the law allows where no sign says otherwise. The map
+pipeline marks every road with its **context**. Riki Maps looks the limit up here by that
+context and the vehicle. When the law changes, this file changes and no map is rebuilt.
+
+```jsonc
+{
+  "country": "sk",
+  "unit": "km/h",                                   // optional; "mph" for GB and US
+  "law": { "name": "Zákon č. 8/2009 Z. z. o cestnej premávke",
+           "url": "https://www.slov-lex.sk/…", "version": "2026-08-01" },
+  "speed": {
+    "urban":    { "default": 50, "section": "§ 16 ods. 4" },
+    "motorway": { "default": 130, "bus": 100, "hgv": 90, "trailer": 90, "section": "§ 16 ods. 2, 3" }
+    // … every context
+  }
+}
+```
+
+| Context | Where |
+|---|---|
+| `urban` | inside a built-up area |
+| `rural` | outside one |
+| `motorway`, `urban_motorway` | a motorway, outside or inside a built-up area |
+| `motorroad`, `urban_motorroad` | a road for motor vehicles only that is not a motorway (`motorroad=yes`) |
+| `living_street` | a living street, pedestrian or school zone |
+
+Every context is required, even where it repeats another. Each one needs `default` and
+`section` (where in the law it is). It may add `motorcycle`, `bus`, `hgv` (over 3.5 t) and
+`trailer` (up to 3.5 t with a trailer). A vehicle left out drives at `default`. A speed is a
+whole number, or `null` where the law sets no limit. `law.version` is the day from which
+the text that was read is in force.
+
 To check a whole checkout, every file against its schema and its path:
 
 ```sh
 tools/validate.py --signs ../traffic-signs/signs
+tools/validate.py --regulations ../traffic-signs/regulations
 ```
 
 ## Validating
@@ -542,14 +583,15 @@ tools/validate.py my-map.mapson my-servers.servson my-map.mapszip maps.json
 
 Each file is checked against the schema its name says: its extension, `maps.json` or
 `*.maps.json` for the catalog, `package.json` or `*.package.json` for a mapspack manifest,
-`*.sign.json`, `*.sign-names.json` and `*.signs-data.json` for traffic sign files. A
+`*.sign.json`, `*.sign-names.json` and `*.signs-data.json` for traffic sign files,
+`*.regulations.json` for a country's regulations. A
 folder is read as a mapspack. A mapszip is read as a container (magic, version, sizes, every
 entry's sha256) and then as the mapspack it holds; packed entries need `pip install pyliblzfse`.
 A `.mapsaar` is unpacked with `aa`, so only on a Mac.
 
 Any 2020-12 validator works, for example Ajv: `new Ajv2020().compile(schema)` from
 `ajv/dist/2020`. For servson, mapspack and maps.json, `addSchema(mapson)` first: they `$ref` its
-`$defs`; for signs-data, `addSchema(sign)`. The schemas match what Riki Maps' decoders accept, so a file that passes imports there.
+`$defs`; for signs-data and regulations, `addSchema(sign)`. The schemas match what Riki Maps' decoders accept, so a file that passes imports there.
 `tests/valid/` and `tests/invalid/` hold the edge cases that CI checks.
 
 In an editor, map `*.mapson` and `*.servson` to JSON. VS Code then picks the schema up from the

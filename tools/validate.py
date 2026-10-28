@@ -1,18 +1,20 @@
 #!/usr/bin/env python3
-"""Validate mapson, servson, mapspack, mapszip, mapsaar, maps.json and traffic sign files against their schemas.
+"""Validate mapson, servson, mapspack, mapszip, mapsaar, maps.json, traffic sign and regulation files against their schemas.
 
     pip install jsonschema
     tools/validate.py my-maps.mapson my-servers.servson Trip.mapspack Trip.mapszip maps.json
     tools/validate.py --expect-invalid tests/invalid/*
     tools/validate.py --signs ../traffic-signs/signs
+    tools/validate.py --regulations ../traffic-signs/regulations
 
 Each file is checked against the schema its name says: by extension, or `maps.json` /
 `*.maps.json` for the catalog and `package.json` / `*.package.json` for a mapspack manifest;
 `*.sign.json` for one country's traffic sign, `*.sign-names.json` for a sign's names and
-`*.signs-data.json` for the traffic signs viewer's data.json.
+`*.signs-data.json` for the traffic signs viewer's data.json, `*.regulations.json` for a
+country's traffic regulations.
 A folder is read as a mapspack; a .mapszip or .mapsaar is unpacked into one first.
 `--signs` reads a skifahrer/traffic-signs `signs/` folder, whose files are named after the
-sign and country instead.
+sign and country instead; `--regulations` its `regulations/` folder, one `<country>.json` each.
 Exits 1 when any file does not come out as expected.
 """
 import argparse
@@ -30,7 +32,8 @@ from referencing import Registry, Resource
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SCHEMAS = ROOT / "schema" / "v1"
-NAMES = ("mapson", "servson", "mapszip", "mapspack", "maps", "sign", "sign-names", "signs-data")
+NAMES = ("mapson", "servson", "mapszip", "mapspack", "maps", "sign", "sign-names", "signs-data",
+         "regulations")
 SUFFIXES = {".mapson": "mapson", ".rikimap": "mapson", ".servson": "servson",
             ".mapszip": "mapszip-file", ".mapsaar": "mapsaar-file"}
 MAGIC = b"RKZS"
@@ -48,7 +51,7 @@ def load(name):
 
 def validators(override=None):
     schemas = {name: load(name) for name in NAMES}
-    # servson, mapspack and maps $ref mapson's $defs, signs-data sign's; registered under their real ids
+    # servson, mapspack and maps $ref mapson's $defs, signs-data and regulations sign's; under their real ids
     registry = Registry().with_resources(
         (schema["$id"], Resource.from_contents(schema)) for schema in schemas.values())
     if override:
@@ -69,7 +72,7 @@ def kind_of(path):
         return "maps"
     if name == "package.json" or name.endswith(".package.json"):
         return "mapspack"
-    for kind in ("sign-names", "signs-data", "sign"):
+    for kind in ("sign-names", "signs-data", "sign", "regulations"):
         if name.endswith(f".{kind}.json"):
             return kind
     return SUFFIXES.get(path.suffix.lower(), "mapson")
@@ -230,6 +233,22 @@ def signs_issues(checking, folder):
     return found
 
 
+def regulations_issues(checking, folder):
+    """A traffic-signs `regulations/` folder: each `<country>.json` valid and of that country."""
+    found = []
+    files = sorted(folder.glob("*.json"))
+    for path in files:
+        where = f"{path.name} "
+        data = path.read_bytes()
+        problems = json_issues(checking["regulations"], data, where)
+        found += problems
+        if not problems and json.loads(data)["country"] != path.stem:
+            found.append(f"{where}country is {json.loads(data)['country']!r}, its name says {path.stem!r}")
+    if not files:
+        found.append("no regulations: pass the regulations/ folder of a traffic-signs checkout")
+    return found
+
+
 def issues(checking, path):
     kind = kind_of(path)
     if kind == "mapspack-dir":
@@ -255,13 +274,16 @@ def main():
     parser.add_argument("--schema", help="check every JSON file against this schema instead")
     parser.add_argument("--signs", action="store_true",
                         help="each argument is the signs/ folder of a traffic-signs checkout")
+    parser.add_argument("--regulations", action="store_true",
+                        help="each argument is the regulations/ folder of a traffic-signs checkout")
     args = parser.parse_args()
 
     checking = validators(args.schema)
-    if args.signs:
+    if args.signs or args.regulations:
         failed = False
         for name in args.files:
-            found = signs_issues(checking, pathlib.Path(name))
+            folder = pathlib.Path(name)
+            found = (signs_issues if args.signs else regulations_issues)(checking, folder)
             print(f"{'FAIL' if found else 'ok  '} {name}")
             for line in found[:200]:
                 print(f"     {line}")
