@@ -1,0 +1,50 @@
+{
+  "$schema": "https://raw.githubusercontent.com/skifahrer/schemas/master/schema/v1/mapson.schema.json",
+  "_schemaVersion": 1,
+  "id": "6E0A2789-0000-4000-A000-000000000001",
+  "name": "Names",
+  "isBuiltIn": false,
+  "drawsRegions": false,
+  "isOnlineOnly": false,
+  "stack": [
+    {
+      "id": "6E0A2789-0000-4000-A000-000000000002",
+      "name": "Geographical names",
+      "symbol": "character.textbox",
+      "role": "base",
+      "opacity": 1,
+      "isEnabled": true,
+      "source": {
+        "region": {
+          "overlay": "names"
+        }
+      }
+    }
+  ],
+  "styles": [
+    {
+      "id": "A1000000-0000-4000-8000-000000000001",
+      "name": "Default",
+      "symbol": "map",
+      "origin": {
+        "arrangement": {}
+      },
+      "notes": "",
+      "adjustments": {
+        "lineWidthScale": 1,
+        "labelSizeScale": 1,
+        "hiddenNameKinds": [
+          "lake"
+        ]
+      },
+      "arrangement": {
+        "order": [
+          "6E0A2789-0000-4000-A000-000000000002"
+        ],
+        "hidden": []
+      }
+    }
+  ],
+  "selectedStyleID": "A1000000-0000-4000-8000-000000000001",
+  "defaultStyleID": "A1000000-0000-4000-8000-000000000001"
+}

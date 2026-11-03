@@ -69,6 +69,7 @@
         "boundaries_maxzoom": { "$ref": "#/$defs/zoom" },
         "water_maxzoom": { "$ref": "#/$defs/zoom" },
         "rail_maxzoom": { "$ref": "#/$defs/zoom" },
+        "names_maxzoom": { "$ref": "#/$defs/zoom" },
         "buildings_maxzoom": { "$ref": "#/$defs/zoom" },
         "aerial_summer_maxzoom": { "$ref": "#/$defs/zoom" },
         "aerial_winter_maxzoom": { "$ref": "#/$defs/zoom" },
