@@ -364,7 +364,7 @@
               "enum": ["cartography", "hillshading", "heightModel", "contours", "rocks",
                        "aerialSummer", "aerialWinter", "waymarked",
                        "roads", "paths", "points", "boundaries", "water", "railways",
-                       "history", "settlements", "mountains",
+                       "history", "names", "settlements", "mountains",
                        "contoursRocks", "roadsPaths", "hillshade", "terrain3D", "trails",
                        "pistes", "features"],
               "description": "A region package. The last seven are legacy names, still read: `roadsPaths` reads as `roads`, `contoursRocks` as `contours`."
@@ -474,7 +474,16 @@
         "lineWidthScale": { "type": "number" },
         "labelSizeScale": { "type": "number" },
         "railVariant": { "type": "string", "enum": ["standard", "active", "maxSpeed", "gauge", "electrification"] },
-        "hidesRailMarks": { "type": "boolean" }
+        "hidesRailMarks": { "type": "boolean" },
+        "hiddenNameKinds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["city", "village", "settlement", "mountain", "valley", "plain", "region"]
+          },
+          "uniqueItems": true,
+          "description": "The kinds of name the style's `names` layer leaves off. Absent or empty draws every kind."
+        }
       }
     },
 

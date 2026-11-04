@@ -97,6 +97,16 @@ Keys are language tags as Apple's `.lproj` folders name them (`de`, `pt-BR`, `zh
 shows the text for the language it runs in (`pt-BR` also takes `pt`), else `name` or `note`. The
 texts travel with the map: a file, iCloud, a shared map.
 
+### Geographical names
+
+A `names` layer draws the region's names of places and land, a kind each: `city`, `village`,
+`settlement`, `mountain`, `valley`, `plain`, `region`. A style's `adjustments.hiddenNameKinds`
+leaves some off, in every style of the map alike:
+
+```jsonc
+"adjustments": { "lineWidthScale": 1, "labelSizeScale": 1, "hiddenNameKinds": ["settlement"] }
+```
+
 ### Regions a layer requires
 
 A `region` layer may name the [maps.json](#mapsjson) regions and ranges it requires, by
