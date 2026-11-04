@@ -164,6 +164,20 @@ The map's coverage still bounds where the camera can go.
              "country": "SK", "box": { "minLon": 16.95, "minLat": 48.0, "maxLon": 17.3, "maxLat": 48.3 } } }
 ```
 
+### The oldest app that can show it
+
+`minimumVersion` names the oldest readers that can show the map: `app`, the oldest Riki Maps,
+and `browser`, the oldest browser viewer a phone serves to browsers nearby. Each is a
+`CFBundleShortVersionString`, compared part by part as numbers. An older reader warns before it
+opens or downloads the map, and says it needs updating. A map made in Riki Maps starts with
+`app` at the beta version it was made in (`0.18.0` for one made in `0.18.5`); its author may
+change it. `browser` is absent until an author sets it. Absent: any reader.
+
+```jsonc
+{ "minimumVersion": { "app": "0.18.0" } }
+{ "minimumVersion": { "app": "0.18.0", "browser": "0.19.0" } }
+```
+
 ### Keys left out, and how to get them
 
 A map exported without its keys (the gallery's copies always are) leaves out `rikiHeaders`

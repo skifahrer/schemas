@@ -65,6 +65,7 @@
         "access": { "$ref": "#/$defs/access" },
         "coverage": { "$ref": "#/$defs/coverage" },
         "start": { "$ref": "#/$defs/mapStart" },
+        "minimumVersion": { "$ref": "#/$defs/minimumVersion" },
         "fromUnsignedFile": { "type": "boolean", "description": "Whether the map came in from a file Riki Maps did not sign; such a map is never published to the gallery, and the mark travels with every copy." },
         "esriServices": {
           "type": "array",
@@ -179,6 +180,19 @@
       "type": "string",
       "enum": ["europe", "asia", "africa", "north-america", "south-america", "oceania", "antarctica"],
       "description": "A continent; Russia counts as Europe, Turkey as Asia."
+    },
+    "minimumVersion": {
+      "type": "object",
+      "description": "The oldest readers that can show the map; an older one warns before opening or downloading it. Absent: any.",
+      "properties": {
+        "app": { "$ref": "#/$defs/appVersion", "description": "The oldest Riki Maps; one made it the beta version it was made in, X.Y.0." },
+        "browser": { "$ref": "#/$defs/appVersion", "description": "The oldest browser viewer, which a phone serves to browsers nearby. Absent: any." }
+      }
+    },
+    "appVersion": {
+      "type": "string",
+      "pattern": "^\\d+(\\.\\d+){0,2}$",
+      "description": "A `CFBundleShortVersionString`, compared part by part as numbers: `1.10` is newer than `1.9`."
     },
     "mapStart": {
       "type": "object",
