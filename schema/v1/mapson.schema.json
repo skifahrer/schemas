@@ -299,7 +299,7 @@
           "items": {
             "type": "string",
             "enum": ["hillshading", "heightModel", "contours", "rocks", "roads", "paths",
-                     "water", "points", "aerialSummer", "aerialWinter"]
+                     "water", "points", "boundaries", "ski", "aerialSummer", "aerialWinter"]
           },
           "uniqueItems": true,
           "description": "The parts a `mountains` layer leaves off its ranges. Absent or empty draws every part."
@@ -378,7 +378,7 @@
               "enum": ["cartography", "hillshading", "heightModel", "contours", "rocks",
                        "aerialSummer", "aerialWinter", "waymarked",
                        "roads", "paths", "points", "boundaries", "water", "railways",
-                       "history", "names", "settlements", "mountains",
+                       "history", "names", "ski", "settlements", "mountains",
                        "contoursRocks", "roadsPaths", "hillshade", "terrain3D", "trails",
                        "pistes", "features"],
               "description": "A region package. The last seven are legacy names, still read: `roadsPaths` reads as `roads`, `contoursRocks` as `contours`."
@@ -497,6 +497,15 @@
           },
           "uniqueItems": true,
           "description": "The kinds of name the style's `names` layer leaves off. Absent or empty draws every kind."
+        },
+        "hiddenSkiKinds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["area", "downhill", "nordic", "skitour", "sled", "hike", "lift"]
+          },
+          "uniqueItems": true,
+          "description": "The kinds the style's `ski` layer, and the `ski` part of its ranges, leave off. Absent or empty draws every kind."
         }
       }
     },
