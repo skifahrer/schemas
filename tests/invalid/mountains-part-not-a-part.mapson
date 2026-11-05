@@ -18,7 +18,7 @@
       "opacity": 1,
       "isEnabled": true,
       "hiddenParts": [
-        "boundaries"
+        "settlements"
       ],
       "source": {
         "region": {

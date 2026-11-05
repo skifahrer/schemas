@@ -1,0 +1,67 @@
+{
+  "$schema": "https://raw.githubusercontent.com/skifahrer/schemas/master/schema/v1/mapson.schema.json",
+  "_schemaVersion": 1,
+  "id": "6E0A2854-0000-4000-A000-000000000001",
+  "name": "Ski",
+  "isBuiltIn": false,
+  "drawsRegions": false,
+  "isOnlineOnly": false,
+  "stack": [
+    {
+      "id": "6E0A2854-0000-4000-A000-000000000002",
+      "name": "Ski & winter",
+      "symbol": "figure.skiing.downhill",
+      "role": "base",
+      "opacity": 1,
+      "isEnabled": true,
+      "source": {
+        "region": {
+          "overlay": "ski"
+        }
+      }
+    },
+    {
+      "id": "6E0A2854-0000-4000-A000-000000000003",
+      "name": "Mountains",
+      "symbol": "mountain.2",
+      "role": "overlay",
+      "opacity": 1,
+      "isEnabled": true,
+      "hiddenParts": [
+        "ski"
+      ],
+      "source": {
+        "region": {
+          "overlay": "mountains"
+        }
+      }
+    }
+  ],
+  "styles": [
+    {
+      "id": "A1000000-0000-4000-8000-000000000001",
+      "name": "Default",
+      "symbol": "map",
+      "origin": {
+        "arrangement": {}
+      },
+      "notes": "",
+      "adjustments": {
+        "lineWidthScale": 1,
+        "labelSizeScale": 1,
+        "hiddenSkiKinds": [
+          "snowmobile"
+        ]
+      },
+      "arrangement": {
+        "order": [
+          "6E0A2854-0000-4000-A000-000000000002",
+          "6E0A2854-0000-4000-A000-000000000003"
+        ],
+        "hidden": []
+      }
+    }
+  ],
+  "selectedStyleID": "A1000000-0000-4000-8000-000000000001",
+  "defaultStyleID": "A1000000-0000-4000-8000-000000000001"
+}

@@ -70,6 +70,7 @@
         "water_maxzoom": { "$ref": "#/$defs/zoom" },
         "rail_maxzoom": { "$ref": "#/$defs/zoom" },
         "names_maxzoom": { "$ref": "#/$defs/zoom" },
+        "ski_maxzoom": { "$ref": "#/$defs/zoom" },
         "buildings_maxzoom": { "$ref": "#/$defs/zoom" },
         "aerial_summer_maxzoom": { "$ref": "#/$defs/zoom" },
         "aerial_winter_maxzoom": { "$ref": "#/$defs/zoom" },
