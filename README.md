@@ -331,6 +331,7 @@ map.mapson          the maps, a mapson
 package.json        which file belongs to which layer
 <layer>.pmtiles     one per tile store, named after the layer that first reads it
 files/<name>        files the layers read
+regions/<region>/<piece>/  Riki Maps region pieces, as their download unpacks them
 ```
 
 ```jsonc
@@ -347,6 +348,8 @@ files/<name>        files the layers read
 - `layerID` is a layer's `id` in any map of `map.mapson`.
 - Layers that read the same store, in one map or across maps, name the same `tiles`.
 - Every path `package.json` names must be in the mapspack.
+- `regions` lists Riki Maps region pieces the maps' built-in layers draw. A `box` means the piece was
+  cut to it and holds only part of the region; a reader may offer the whole region later.
 - A reader refuses a `version` newer than it knows.
 
 A folder is awkward to send, so a mapspack travels as an archive: a mapszip or a mapsaar. Both

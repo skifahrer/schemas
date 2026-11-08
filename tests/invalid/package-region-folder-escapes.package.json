@@ -1,0 +1,12 @@
+{
+  "$schema": "https://raw.githubusercontent.com/skifahrer/schemas/master/schema/v1/mapspack.schema.json",
+  "version": 1,
+  "items": [],
+  "regions": [
+    {
+      "region": "trnavsky",
+      "piece": "paths",
+      "folder": "regions/../etc"
+    }
+  ]
+}
