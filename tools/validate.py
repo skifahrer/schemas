@@ -183,6 +183,9 @@ def mapspack_issues(checking, folder):
         for path in ([item["tiles"]] if "tiles" in item else []) + item["files"]:
             if not (folder / path).is_file():
                 found.append(f"package.json names {path}, which is not in the mapspack")
+    for region in json.loads(manifest_data).get("regions", []):
+        if not (folder / region["folder"]).is_dir():
+            found.append(f"package.json names {region['folder']}, which is not in the mapspack")
     return found
 
 

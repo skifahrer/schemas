@@ -18,8 +18,34 @@
       "items": { "$ref": "#/$defs/item" },
       "description": "One per layer that brings data, map by map, drawn first first. Layers without data are left out."
     }
+,
+    "regions": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/region" },
+      "description": "Riki Maps region pieces the maps' built-in layers draw, each a downloaded piece's folder. Absent when there are none."
+    }
   },
   "$defs": {
+    "region": {
+      "type": "object",
+      "required": ["region", "piece", "folder"],
+      "properties": {
+        "region": { "type": "string", "pattern": "^[^/\\\\]+$", "description": "The region's id in the map catalog." },
+        "piece": { "type": "string", "pattern": "^[^/\\\\]+$", "description": "The piece of it, as the catalog names packages: `paths`, `roads`…" },
+        "folder": {
+          "type": "string",
+          "pattern": "^regions/[^/\\\\.][^/\\\\]*/[^/\\\\.][^/\\\\]*$",
+          "description": "The piece's folder, as the region's download unpacks it, under `regions/<region>/<piece>`."
+        },
+        "box": {
+          "type": "array",
+          "items": { "type": "number" },
+          "minItems": 4,
+          "maxItems": 4,
+          "description": "`[west, south, east, north]` the piece was cut to. Absent for the whole region; a cut piece holds only the tiles touching the box."
+        }
+      }
+    },
     "item": {
       "type": "object",
       "required": ["layerID", "cacheKey", "files"],
