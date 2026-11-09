@@ -1,0 +1,48 @@
+{
+  "id": "6BCD49AA-3ADF-42E8-8C2F-70AAE3C89FBE",
+  "name": "Details",
+  "isBuiltIn": false,
+  "drawsRegions": false,
+  "isOnlineOnly": true,
+  "stack": [
+    {
+      "id": "06727121-B765-4C9E-92B0-256950A2DF10",
+      "name": "Trams",
+      "symbol": "tram.fill",
+      "role": "base",
+      "opacity": 1,
+      "isEnabled": true,
+      "source": {
+        "url": {
+          "template": "https://api.example/vehicles",
+          "maxZoom": 18,
+          "format": "api",
+          "attribution": ""
+        }
+      },
+      "apiReading": {
+        "itemsPath": "",
+        "spelling": "decimal",
+        "latitudeKey": "lat",
+        "longitudeKey": "lon",
+        "positionKey": "",
+        "shownKeys": [
+          "line"
+        ]
+      },
+      "details": {
+        "sections": [
+          {
+            "id": "9C109F86-B399-4DF6-97BA-65AA9FF5CAE0",
+            "blocks": [
+              {
+                "value": "{tooltip}"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "styles": []
+}

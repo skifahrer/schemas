@@ -149,7 +149,32 @@
       "pointHeadingKey": "bearing",
       "pointInnerText": "{line}",
       "pointStacking": "vertical",
-      "drawsLive": true
+      "drawsLive": true,
+      "details": {
+        "header": { "symbol": "bus", "title": "Line {line}" },
+        "actions": {
+          "items": [
+            { "builtIn": "directions" }, { "builtIn": "save" }, { "builtIn": "share" },
+            { "button": { "id": "B2000000-0000-4000-8000-0000000000B1", "label": "Timetable",
+                          "symbol": "calendar", "hidesWhenKeyEmpty": true,
+                          "action": { "kind": "link", "template": "https://example.com/trip/{tripId}" } } }
+          ],
+          "highlightsFirst": true
+        },
+        "sections": [
+          { "id": "B2000000-0000-4000-8000-0000000000A1", "title": "About",
+            "blocks": [
+              { "kind": "connectionCard", "delayKey": "delay", "destinationKey": "to", "updatedKey": "updated" },
+              { "kind": "rows", "rows": [
+                { "id": "B2000000-0000-4000-8000-0000000000C1", "title": "Speed",
+                  "symbol": "speedometer", "value": "{speed} km/h" } ] },
+              { "kind": "text", "title": "Note", "value": "{tooltip}", "style": "warning",
+                "hidesWhenEmpty": true }
+            ] },
+          { "id": "B2000000-0000-4000-8000-0000000000A2", "title": "Source",
+            "blocks": [ { "kind": "app", "part": "nearby" }, { "kind": "app", "part": "allTags" } ] }
+        ]
+      }
     },
     {
       "id": "B2000000-0000-4000-8000-000000000005",

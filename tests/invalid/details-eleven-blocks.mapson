@@ -1,0 +1,89 @@
+{
+  "id": "4B1E7A80-F863-483A-9818-003BD69E0DD9",
+  "name": "Details",
+  "isBuiltIn": false,
+  "drawsRegions": false,
+  "isOnlineOnly": true,
+  "stack": [
+    {
+      "id": "215F2C93-D8F3-4776-AEFD-7433FD3F80D2",
+      "name": "Trams",
+      "symbol": "tram.fill",
+      "role": "base",
+      "opacity": 1,
+      "isEnabled": true,
+      "source": {
+        "url": {
+          "template": "https://api.example/vehicles",
+          "maxZoom": 18,
+          "format": "api",
+          "attribution": ""
+        }
+      },
+      "apiReading": {
+        "itemsPath": "",
+        "spelling": "decimal",
+        "latitudeKey": "lat",
+        "longitudeKey": "lon",
+        "positionKey": "",
+        "shownKeys": [
+          "line"
+        ]
+      },
+      "details": {
+        "sections": [
+          {
+            "id": "711901C4-C34B-4253-8293-66F6979C1E63",
+            "blocks": [
+              {
+                "kind": "text",
+                "value": "{k0}"
+              },
+              {
+                "kind": "text",
+                "value": "{k1}"
+              },
+              {
+                "kind": "text",
+                "value": "{k2}"
+              },
+              {
+                "kind": "text",
+                "value": "{k3}"
+              },
+              {
+                "kind": "text",
+                "value": "{k4}"
+              },
+              {
+                "kind": "text",
+                "value": "{k5}"
+              },
+              {
+                "kind": "text",
+                "value": "{k6}"
+              },
+              {
+                "kind": "text",
+                "value": "{k7}"
+              },
+              {
+                "kind": "text",
+                "value": "{k8}"
+              },
+              {
+                "kind": "text",
+                "value": "{k9}"
+              },
+              {
+                "kind": "text",
+                "value": "{k10}"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "styles": []
+}

@@ -1,0 +1,247 @@
+{
+  "id": "CA7CB534-B3D3-4405-8F4D-9F9C15A03239",
+  "name": "Details",
+  "isBuiltIn": false,
+  "drawsRegions": false,
+  "isOnlineOnly": true,
+  "stack": [
+    {
+      "id": "7A447180-8728-4F40-B07C-21E3BD947455",
+      "name": "Trams",
+      "symbol": "tram.fill",
+      "role": "base",
+      "opacity": 1,
+      "isEnabled": true,
+      "source": {
+        "url": {
+          "template": "https://api.example/vehicles",
+          "maxZoom": 18,
+          "format": "api",
+          "attribution": ""
+        }
+      },
+      "apiReading": {
+        "itemsPath": "",
+        "spelling": "decimal",
+        "latitudeKey": "lat",
+        "longitudeKey": "lon",
+        "positionKey": "",
+        "shownKeys": [
+          "line"
+        ]
+      },
+      "details": {
+        "header": {
+          "symbol": "tram.fill",
+          "title": "{line} {trainNumber}",
+          "titleTranslations": {
+            "sk": "Linka {line}"
+          }
+        },
+        "actions": {
+          "items": [
+            {
+              "builtIn": "directions"
+            },
+            {
+              "builtIn": "save"
+            },
+            {
+              "builtIn": "share"
+            },
+            {
+              "builtIn": "follow"
+            },
+            {
+              "button": {
+                "id": "80474F45-9895-46A6-82AA-E8BB28AFA4FC",
+                "label": "Timetable",
+                "symbol": "calendar",
+                "action": {
+                  "kind": "link",
+                  "template": "https://mapa.example/trip/{tripId}"
+                },
+                "hidesWhenKeyEmpty": true
+              }
+            },
+            {
+              "builtIn": "report"
+            },
+            {
+              "button": {
+                "id": "3F7CF92E-1542-4402-B683-81290972B693",
+                "label": "Pay",
+                "action": {
+                  "kind": "pay"
+                }
+              }
+            }
+          ],
+          "labels": "iconAndLabel",
+          "highlightsFirst": true
+        },
+        "sections": [
+          {
+            "id": "60665D0B-5641-4612-AC48-6422E0024810",
+            "title": "About",
+            "titleTranslations": {
+              "sk": "O spoji"
+            },
+            "blocks": [
+              {
+                "kind": "connectionCard",
+                "id": "0F4820E4-42A2-49E1-97DF-9F18A022D403",
+                "delayKey": "delayMinutes",
+                "plannedKey": "planned",
+                "actualKey": "actual",
+                "stationKey": "{stop}",
+                "noteKey": "tooltip",
+                "originKey": "from",
+                "destinationKey": "to",
+                "operatorKey": "operator",
+                "updatedKey": "updated",
+                "liveSeconds": 60
+              },
+              {
+                "kind": "rows",
+                "id": "C3CCDA58-530A-40A5-AD6D-4EEBA15F6D99",
+                "look": "sideBySide",
+                "showsIcons": true,
+                "hidesEmpty": true,
+                "rows": [
+                  {
+                    "id": "7FAABB07-FBDF-41F0-82F4-57719C9FCC3D",
+                    "title": "Speed",
+                    "symbol": "speedometer",
+                    "value": "{speed} km/h"
+                  },
+                  {
+                    "id": "E00EA63F-0ED8-4440-9CE8-541EF22E8FA7",
+                    "isCoordinates": true
+                  }
+                ]
+              },
+              {
+                "kind": "button",
+                "id": "E9233621-CF88-421D-9328-CB42D8AFF5C7",
+                "button": {
+                  "id": "6227B60C-5B78-47E8-915F-FB0EE05B7019",
+                  "label": "Call dispatcher",
+                  "symbol": "phone",
+                  "look": "tinted",
+                  "action": {
+                    "kind": "call",
+                    "template": "{dispatchPhone}"
+                  }
+                }
+              },
+              {
+                "kind": "button",
+                "id": "C8D7ED34-5510-4CFE-8AAD-8C499EEF55FD",
+                "button": {
+                  "id": "7EBE682B-7AE8-4E0E-9101-C8C3F899A9C0",
+                  "label": "Text",
+                  "look": "outline",
+                  "action": {
+                    "kind": "message",
+                    "template": "{phone}",
+                    "body": "Tram {line}"
+                  }
+                }
+              },
+              {
+                "kind": "button",
+                "id": "0358C236-515A-4C76-86D3-4403DB0FC725",
+                "button": {
+                  "id": "1D3FA517-7E27-4619-8D87-EA2B8C2B7803",
+                  "label": "Write",
+                  "look": "filled",
+                  "action": {
+                    "kind": "email",
+                    "template": "{mail}",
+                    "subject": "Tram {line}",
+                    "body": ""
+                  }
+                }
+              },
+              {
+                "kind": "button",
+                "id": "A93554A2-8A1E-44D2-8B09-FAD2D1CE0AF1",
+                "button": {
+                  "id": "24069C5C-F9AC-4E97-8224-859CDB79273B",
+                  "label": "Copy number",
+                  "action": {
+                    "kind": "copy",
+                    "template": "{trainNumber}"
+                  }
+                }
+              },
+              {
+                "kind": "text",
+                "id": "A8C22CDC-88F5-4B14-BB18-8D4FF8CF6817",
+                "title": "Note from the operator",
+                "value": "{tooltip}",
+                "style": "warning",
+                "showsIcon": true,
+                "hidesWhenEmpty": true
+              },
+              {
+                "kind": "image",
+                "id": "272C2639-736E-46CF-8EC8-EB2F0CBA229F",
+                "value": "{photo}"
+              },
+              {
+                "kind": "chart",
+                "id": "5527D6C9-3E56-4688-A5D0-246E05C877F6",
+                "series": "{history}"
+              }
+            ]
+          },
+          {
+            "id": "3CA3675E-C0C4-4549-BC3D-470C89D74439",
+            "title": "Source",
+            "blocks": [
+              {
+                "kind": "app",
+                "part": "place"
+              },
+              {
+                "kind": "app",
+                "part": "nearby"
+              },
+              {
+                "kind": "app",
+                "part": "shape"
+              },
+              {
+                "kind": "app",
+                "part": "pictures"
+              },
+              {
+                "kind": "app",
+                "part": "group"
+              },
+              {
+                "kind": "app",
+                "part": "contact"
+              },
+              {
+                "kind": "app",
+                "part": "wikipedia"
+              },
+              {
+                "kind": "app",
+                "part": "allTags"
+              },
+              {
+                "kind": "app",
+                "part": "reviews"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "styles": []
+}
