@@ -1,0 +1,73 @@
+{
+  "id": "28F7828C-3EE0-4F2F-9FCC-2841B271706B",
+  "name": "Huts",
+  "isBuiltIn": false,
+  "drawsRegions": false,
+  "isOnlineOnly": true,
+  "stack": [
+    {
+      "id": "A2B109E0-8B27-489C-ACB1-56DDE6E76A73",
+      "name": "Base map",
+      "symbol": "map",
+      "role": "base",
+      "opacity": 1,
+      "isEnabled": true,
+      "source": {
+        "region": {
+          "overlay": "cartography"
+        }
+      },
+      "details": {
+        "actions": {
+          "items": []
+        },
+        "sections": [
+          {
+            "id": "C5CB513C-0A97-43FE-8EBA-3EC75821D55F",
+            "title": "Hut",
+            "blocks": [
+              {
+                "kind": "rows",
+                "rows": [
+                  {
+                    "id": "05471483-743B-4662-8248-0838637ED605",
+                    "title": "Open",
+                    "symbol": "clock",
+                    "value": "{opening_hours}"
+                  },
+                  {
+                    "id": "58515531-92E3-42A0-9F6D-FDBFD45362C3",
+                    "title": "Height",
+                    "symbol": "mountain.2",
+                    "value": "{ele} m"
+                  }
+                ]
+              },
+              {
+                "kind": "button",
+                "button": {
+                  "id": "622C8083-B6C6-4559-A8E9-D1CBBE0C9FE7",
+                  "label": "OpenStreetMap",
+                  "symbol": "globe",
+                  "action": {
+                    "kind": "link",
+                    "template": "https://www.openstreetmap.org/{osm_type}/{osm_id}"
+                  }
+                }
+              },
+              {
+                "kind": "app",
+                "part": "contact"
+              },
+              {
+                "kind": "app",
+                "part": "allTags"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "styles": []
+}

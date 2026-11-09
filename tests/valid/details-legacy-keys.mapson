@@ -1,0 +1,80 @@
+{
+  "id": "05C6154F-A3CA-4AE2-8064-0ECBD85FE595",
+  "name": "Legacy details",
+  "isBuiltIn": false,
+  "drawsRegions": false,
+  "isOnlineOnly": true,
+  "stack": [
+    {
+      "id": "31352790-C7EA-4BB0-8E15-0093BBF9565A",
+      "name": "Trams",
+      "symbol": "tram.fill",
+      "role": "base",
+      "opacity": 1,
+      "isEnabled": true,
+      "source": {
+        "url": {
+          "template": "https://api.example/vehicles",
+          "maxZoom": 18,
+          "format": "api",
+          "attribution": ""
+        }
+      },
+      "apiReading": {
+        "itemsPath": "",
+        "spelling": "decimal",
+        "latitudeKey": "lat",
+        "longitudeKey": "lon",
+        "positionKey": "",
+        "shownKeys": [
+          "line"
+        ],
+        "detailRows": [
+          {
+            "id": "EAB5E5A7-0307-497A-84F2-F1247C5A431D",
+            "title": "Speed",
+            "symbol": "speedometer",
+            "value": "{speed} km/h"
+          },
+          {
+            "id": "C2879A61-E932-48B9-A712-32AF782784CE",
+            "title": "",
+            "symbol": "mappin.and.ellipse",
+            "value": "",
+            "isCoordinates": true,
+            "isHidden": true
+          }
+        ],
+        "connectionCard": {
+          "delayKey": "delay",
+          "destinationKey": "to"
+        }
+      }
+    },
+    {
+      "id": "FE5C4F21-EDCC-4018-B824-01299648ECCC",
+      "name": "Huts",
+      "symbol": "house",
+      "role": "overlay",
+      "opacity": 1,
+      "isEnabled": true,
+      "source": {
+        "url": {
+          "template": "https://gis.example/arcgis/rest/services/Huts/MapServer",
+          "maxZoom": 18,
+          "format": "arcgisQuery",
+          "attribution": ""
+        }
+      },
+      "esriDetailRows": [
+        {
+          "id": "5DCED586-8A38-4AD4-972E-E89CA689AFDA",
+          "title": "Beds",
+          "symbol": "bed.double",
+          "value": "BEDS"
+        }
+      ]
+    }
+  ],
+  "styles": []
+}

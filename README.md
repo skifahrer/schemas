@@ -213,6 +213,57 @@ to it. A key still not entered stays in `missingKeys`.
 `fromUnsignedFile: true` marks a map that came in from a file Riki Maps did not sign. It travels
 inside the signature of every later copy, and such a map is never published to the gallery.
 
+### What a tapped point shows
+
+A layer's `details` lays out the sheet a tapped point opens: a `header`, the `actions` under it
+and one or more `sections`, each a title above blocks.
+
+```jsonc
+"details": {
+  "header": { "symbol": "tram.fill", "title": "{line} {trainNumber}" },
+  "actions": {
+    "items": [ { "builtIn": "directions" }, { "builtIn": "save" }, { "builtIn": "share" },
+               { "button": { "id": "6F1C…", "label": "Timetable", "symbol": "calendar",
+                             "action": { "kind": "link", "template": "https://mapa.example/trip/{tripId}" },
+                             "hidesWhenKeyEmpty": true } } ],
+    "labels": "iconAndLabel", "highlightsFirst": true },
+  "sections": [
+    { "id": "A0E2…", "title": "About", "titleTranslations": { "sk": "O spoji" },
+      "blocks": [
+        { "kind": "connectionCard", "delayKey": "delayMinutes", "destinationKey": "to", "liveSeconds": 60 },
+        { "kind": "rows", "look": "sideBySide", "showsIcons": true, "hidesEmpty": true,
+          "rows": [ { "id": "…", "title": "Speed", "symbol": "speedometer", "value": "{speed} km/h" },
+                    { "id": "…", "isCoordinates": true } ] },
+        { "kind": "button", "button": { "id": "…", "label": "Call dispatcher", "look": "tinted",
+                                        "action": { "kind": "call", "template": "{dispatchPhone}" } } },
+        { "kind": "text", "title": "Note", "value": "{tooltip}", "style": "warning", "hidesWhenEmpty": true },
+        { "kind": "image", "value": "{photo}" } ] },
+    { "id": "…", "title": "Source",
+      "blocks": [ { "kind": "app", "part": "nearby" }, { "kind": "app", "part": "allTags" } ] } ] }
+```
+
+- `details` absent: the layer's default layout. `actions` absent: the app's default buttons;
+  `"items": []`: none. A `header` key left out keeps the app's own.
+- `{key}` is the point's value; a bare key with no braces is the whole value.
+- Block kinds: `connectionCard`, `rows`, `button`, `text`, `image`, and `app`, the reader's own
+  parts of the sheet (`place`, `nearby`, `shape`, `pictures`, `group`, `contact`, `wikipedia`,
+  `allTags`), each at most once. Sections hold 10 other blocks at most, all together.
+- A custom button sits where it is written: in `actions.items`, or as a `button` block.
+- **A button's kind of link is the author's, never the data's.** `link` writes its scheme
+  (`https`, `http`, `mailto`, `sms`, another app's) in the template; a reader refuses a scheme
+  filled from a key, and `javascript`, `data`, `file` and `about` always. Values filled in are
+  percent-encoded. Only a template that is a single `{key}` takes a whole address from the
+  point, and then only `https` or `http`. `call` and `message` keep digits, `+`, `*` and `#`;
+  `email` takes an address that parses as one, with `subject` and `body` templates; `copy`
+  copies its text.
+- A reader skips a block `kind`, an app `part`, a `builtIn` or an action `kind` it does not
+  know, and keeps it through a save.
+- **Older keys.** `apiReading.detailRows`, `apiReading.connectionCard` and `esriDetailRows`
+  are still read when `details` is absent: one section, the card first, then the rows, then the
+  app's parts. A writer keeps writing them beside `details` for older readers.
+- A layer with a custom layout raises the map's `minimumVersion.app` to the first app that
+  draws everything it uses.
+
 ### Several maps
 
 A file with `maps` is a collection. Each entry is a whole map, exactly as it would be written
