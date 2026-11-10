@@ -263,6 +263,10 @@ and one or more `sections`, each a title above blocks.
   app's parts. A writer keeps writing them beside `details` for older readers.
 - A layer with a custom layout raises the map's `minimumVersion.app` to the first app that
   draws everything it uses.
+- An `image` block loads its picture from the internet only where the layer's `connectivity`
+  lets `detailPictures` through. `blocked` and `opened` name the groups a layer narrows for
+  itself: `layerFeatureDownload`, `layerTileDownload`, `layerFeatureRequest`,
+  `layerTileRequest` and `detailPictures`; a reader keeps a name it does not know.
 
 ### Several maps
 
