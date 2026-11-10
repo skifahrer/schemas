@@ -619,6 +619,7 @@
 
     "layerConnectivity": {
       "type": "object",
+      "description": "Network groups this layer blocks or opens for itself: layerFeatureDownload, layerTileDownload, layerFeatureRequest, layerTileRequest, detailPictures.",
       "properties": {
         "blocked": { "$ref": "#/$defs/stringList" },
         "opened": { "$ref": "#/$defs/stringList" },
