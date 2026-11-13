@@ -294,6 +294,7 @@
         "darkensInDarkMode": { "type": "boolean" },
         "hidesRouteIcons": { "type": "boolean" },
         "hidesTrails": { "type": "boolean" },
+        "loadsPhotosOnline": { "type": "boolean", "description": "Summer photos past their package's deepest zoom load from the catalog's `mountains.aerial_sources`." },
         "hiddenParts": {
           "type": "array",
           "items": {

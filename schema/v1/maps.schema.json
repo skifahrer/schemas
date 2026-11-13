@@ -22,6 +22,18 @@
       "properties": {
         "id": { "$ref": "mapson.schema.json#/$defs/regionId", "description": "`mountains`." },
         "name": { "type": "string", "description": "Shown by the app, in English." },
+        "aerial_sources": {
+          "type": "object",
+          "description": "Photo source key, as a package's `aerial_summer_source` names it → the server that goes deeper than its packages, for an app to load those zooms online.",
+          "additionalProperties": {
+            "type": "object",
+            "required": ["online", "online_maxzoom"],
+            "properties": {
+              "online": { "type": "string", "pattern": "^https://", "description": "Tile address with `{z}`, `{x}` and `{y}`." },
+              "online_maxzoom": { "$ref": "#/$defs/zoom" }
+            }
+          }
+        },
         "ranges": {
           "type": "object",
           "additionalProperties": { "$ref": "#/$defs/area" },
