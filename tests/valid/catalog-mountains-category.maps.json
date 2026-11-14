@@ -65,6 +65,12 @@
           "PL"
         ]
       }
+    },
+    "aerial_sources": {
+      "ofmozaika_sk": {
+        "online": "https://ofmozaika2c.tiles.freemap.sk/{z}/{x}/{y}.jpg",
+        "online_maxzoom": 19
+      }
     }
   }
 }

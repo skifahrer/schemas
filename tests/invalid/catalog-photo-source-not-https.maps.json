@@ -1,0 +1,13 @@
+{
+  "mountains": {
+    "id": "mountains",
+    "name": "Mountains",
+    "aerial_sources": {
+      "plain": {
+        "online": "http://a/{z}/{x}/{y}.jpg",
+        "online_maxzoom": 19
+      }
+    },
+    "ranges": {}
+  }
+}
