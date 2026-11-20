@@ -261,6 +261,9 @@ and one or more `sections`, each a title above blocks.
 - **Older keys.** `apiReading.detailRows`, `apiReading.connectionCard` and `esriDetailRows`
   are still read when `details` is absent: one section, the card first, then the rows, then the
   app's parts. A writer keeps writing them beside `details` for older readers.
+- `taps` says which of the layer's shapes a tap opens the sheet on: `"taps": { "areas": false }`
+  lets a tap on an area go through to the map under it. A kind left out, or `taps` absent,
+  answers; a reader that knows no `taps` answers on every shape.
 - A layer with a custom layout raises the map's `minimumVersion.app` to the first app that
   draws everything it uses.
 - An `image` block loads its picture from the internet only where the layer's `connectivity`
