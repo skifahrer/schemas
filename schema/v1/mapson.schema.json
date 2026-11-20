@@ -657,7 +657,17 @@
       "properties": {
         "header": { "$ref": "#/$defs/detailHeader" },
         "actions": { "$ref": "#/$defs/detailActions" },
-        "sections": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/detailSection" } }
+        "sections": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/detailSection" } },
+        "taps": { "$ref": "#/$defs/detailTaps" }
+      }
+    },
+    "detailTaps": {
+      "type": "object",
+      "description": "Which of the layer's shapes a tap opens the sheet on. Absent, or a kind left out: it answers; `false`: a tap goes through to the map under it.",
+      "properties": {
+        "points": { "type": "boolean" },
+        "paths": { "type": "boolean" },
+        "areas": { "type": "boolean" }
       }
     },
     "detailHeader": {
