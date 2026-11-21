@@ -189,6 +189,16 @@ change it. `browser` is absent until an author sets it. Absent: any reader.
 { "minimumVersion": { "app": "0.18.0", "browser": "0.19.0" } }
 ```
 
+### Category
+
+`category` is the map's owner's own label for it ("Hiking", "Work"): one line with single spaces,
+at most 40 characters. It is not the gallery's category, which a submission is filed under. A
+reader of a shared map shows it and cannot change it. Absent: none.
+
+```jsonc
+{ "category": "Hiking" }
+```
+
 ### Keys left out, and how to get them
 
 A map exported without its keys (the gallery's copies always are) leaves out `rikiHeaders`
