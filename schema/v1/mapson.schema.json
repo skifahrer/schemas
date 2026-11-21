@@ -35,6 +35,13 @@
           "$ref": "#/$defs/translations",
           "description": "The note in other languages, picked as `nameTranslations` is."
         },
+        "category": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "pattern": "^\\S+( \\S+)*$",
+          "description": "The owner's own label for the map, one line with single spaces; absent is none."
+        },
         "stack": {
           "type": "array",
           "items": { "$ref": "#/$defs/layer" },

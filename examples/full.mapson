@@ -5,6 +5,7 @@
   "name": "Low Tatras summer",
   "nameTranslations": { "sk": "Nízke Tatry v lete", "de": "Niedere Tatra im Sommer" },
   "note": "Marked trails and huts; download the Žilina and Prešov regions first.",
+  "category": "Hiking",
   "noteTranslations": { "sk": "Značené chodníky a chaty; najprv si stiahnite Žilinský a Prešovský kraj." },
   "isBuiltIn": false,
   "drawsRegions": true,
