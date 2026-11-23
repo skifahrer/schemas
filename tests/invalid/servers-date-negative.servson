@@ -1,0 +1,25 @@
+{
+  "$schema": "https://raw.githubusercontent.com/skifahrer/schemas/master/schema/v1/servson.schema.json",
+  "_schemaVersion": 1,
+  "_comment": "47 a negative date is refused",
+  "exportedAt": -1,
+  "includesCredentials": false,
+  "servers": [
+    {
+      "id": "{5E0B6C1A}",
+      "name": "OpenTopoMap",
+      "kind": "tiles",
+      "url": "https://tile.opentopomap.org/{z}/{x}/{y}.png",
+      "headerNames": [],
+      "symbol": "server.rack",
+      "format": "raster",
+      "maxZoom": 17,
+      "attribution": "© OpenTopoMap (CC-BY-SA)",
+      "allowsOffline": true,
+      "layers": [],
+      "facts": [],
+      "readAt": 1790652878.5,
+      "addedAt": 1790652800
+    }
+  ]
+}

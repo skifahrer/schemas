@@ -1,7 +1,8 @@
 {
+  "_comment": "47 a date is Unix seconds, never an ISO string",
   "$schema": "https://raw.githubusercontent.com/skifahrer/schemas/master/schema/v1/servson.schema.json",
   "_schemaVersion": 1,
-  "exportedAt": 812400000,
+  "exportedAt": 1790707200,
   "includesCredentials": false,
   "servers": [
     {
@@ -18,7 +19,7 @@
       "layers": [],
       "facts": [],
       "readAt": "2026-09-28T10:00:00Z",
-      "addedAt": 812345600
+      "addedAt": 1790652800
     }
   ]
 }
