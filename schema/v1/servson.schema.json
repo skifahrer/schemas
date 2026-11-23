@@ -13,6 +13,7 @@
       "maximum": 1,
       "description": "Absent reads as 1. Readers refuse a version newer than theirs."
     },
+    "_dates": { "$ref": "mapson.schema.json#/$defs/datesMarker" },
     "_signature": {
       "type": "string",
       "description": "Opaque: Riki Maps' mark on its own exports, over every key but the sidecars. Others leave it out, and drop it on edit."
