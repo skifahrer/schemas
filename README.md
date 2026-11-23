@@ -376,6 +376,12 @@ reuses mapson's `$defs` by relative `$ref`.
 A layer with `addedByHand` true was typed in by the user rather than published by the server.
 It has its own `template` (or an Esri `number`), and a reader keeps it when it reads the server again.
 
+An API layer's look is versioned: `lookVersion` (from 1), `lookSavedAt` and `lookHistory`, the
+last ten saves as `{version, savedAt, parts}` with `parts` from `markers` `details` `questions`
+`points`. A map's layer records what it took in `serverLook` (`taken`, `answered`, and per part
+`taken` and `hash`), and `apiReading.filter` keeps only points where every `{key, op, value}`
+rule holds, `op` being `is`, `isNot`, `contains` or `notEmpty`. All of these are optional.
+
 **Credentials are the writer's choice.** With `includesCredentials` false, the file has no
 `rikiHeaders`. Query keys such as `token`, `key` or `api_key` are also removed from every
 address. Header *names* stay, so the reader knows which values it must supply. A reader should

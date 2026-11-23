@@ -115,7 +115,29 @@
         "minZoom": { "type": "integer", "minimum": 0 },
         "maxZoom": { "type": "integer", "minimum": 0 },
         "bounds": { "$ref": "mapson.schema.json#/$defs/geoBox" },
-        "addedByHand": { "type": "boolean", "description": "Typed in by the user, not published by the server; a re-read keeps it." }
+        "addedByHand": { "type": "boolean", "description": "Typed in by the user, not published by the server; a re-read keeps it." },
+        "lookVersion": { "type": "integer", "minimum": 1, "description": "Starts at 1 with the first saved look; goes up by one on each save that changes a part." },
+        "lookSavedAt": { "$ref": "mapson.schema.json#/$defs/date", "description": "When the look was last saved; the later one wins between devices." },
+        "lookHistory": {
+          "type": "array",
+          "maxItems": 10,
+          "items": { "$ref": "#/$defs/lookHistoryEntry" },
+          "description": "The last ten saves, newest first."
+        }
+      }
+    },
+
+    "lookHistoryEntry": {
+      "type": "object",
+      "required": ["version", "savedAt", "parts"],
+      "properties": {
+        "version": { "type": "integer", "minimum": 1 },
+        "savedAt": { "$ref": "mapson.schema.json#/$defs/date" },
+        "parts": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["markers", "details", "questions", "points"] },
+          "description": "The parts that changed in this save."
+        }
       }
     },
 
