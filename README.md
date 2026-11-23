@@ -303,7 +303,11 @@ alone, as version 1, so readers that know only one map still open it.
 
 - **Ids** are UUID strings such as `0834FFB7-67BA-4327-87F2-E18AEE11B2FC`. Either case works.
 - **Pictures** (`iconPicture`, `imageData`) are standard base64 with padding.
-- **Dates** are numbers: Unix seconds, since 1970-01-01T00:00:00Z, in every schema.
+- **Dates** are numbers: Unix seconds, since 1970-01-01T00:00:00Z, in every schema. A mapson
+  or servson file says so with a top-level `"_dates": "unix"` (a collection carries it at the
+  top and each of its maps its own). A file without it is an older one: its numbers count from
+  2001-01-01T00:00:00Z and its strings are ISO 8601. Writers always set it; `_schemaVersion`
+  stays as it is.
 - **Integers** (zooms, counts, bytes) must be whole numbers. `18.5` is refused.
 - **Enums** (`role`, `format`, `overlay`, …) are closed. A value outside the list makes
   the whole file unreadable.
