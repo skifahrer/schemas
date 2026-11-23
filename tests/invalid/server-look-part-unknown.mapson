@@ -1,0 +1,48 @@
+{
+  "id": "5B0E2F1C-7A44-4C2E-9E0B-3F1D2C4A6B71",
+  "name": "x",
+  "isBuiltIn": false,
+  "drawsRegions": false,
+  "isOnlineOnly": true,
+  "stack": [
+    {
+      "id": "9C3A1E55-2B7D-4F60-8A19-6E4D0B2C7F38",
+      "name": "Cafes",
+      "symbol": "cup.and.saucer.fill",
+      "role": "base",
+      "opacity": 1,
+      "isEnabled": true,
+      "source": {
+        "url": {
+          "template": "https://api.example/cafes",
+          "maxZoom": 18,
+          "format": "api",
+          "attribution": ""
+        }
+      },
+      "serverID": "5e0b6c1a-2d34-4f7a-9c11-0a7b3e2d9f01",
+      "serverLayerID": "cafes",
+      "apiReading": {
+        "itemsPath": "cafes",
+        "spelling": "decimal",
+        "latitudeKey": "lat",
+        "longitudeKey": "lon",
+        "positionKey": "",
+        "shownKeys": [
+          "name"
+        ]
+      },
+      "serverLook": {
+        "taken": 1,
+        "answered": 1,
+        "parts": {
+          "colour": {
+            "taken": 1,
+            "hash": "a"
+          }
+        }
+      }
+    }
+  ],
+  "styles": []
+}

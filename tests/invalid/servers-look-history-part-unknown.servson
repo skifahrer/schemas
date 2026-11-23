@@ -1,0 +1,40 @@
+{
+  "$schema": "https://raw.githubusercontent.com/skifahrer/schemas/master/schema/v1/servson.schema.json",
+  "_schemaVersion": 1,
+  "exportedAt": 812400000,
+  "includesCredentials": false,
+  "servers": [
+    {
+      "id": "5e0b6c1a-2d34-4f7a-9c11-0a7b3e2d9f01",
+      "name": "Coffee API",
+      "kind": "api",
+      "url": "https://api.example/cafes",
+      "headerNames": [],
+      "symbol": "server.rack",
+      "format": "api",
+      "maxZoom": 18,
+      "attribution": "",
+      "allowsOffline": false,
+      "layers": [
+        {
+          "id": "cafes",
+          "name": "Cafes",
+          "supportsQuery": false,
+          "tileFormat": "api",
+          "lookHistory": [
+            {
+              "version": 1,
+              "savedAt": 1,
+              "parts": [
+                "colour"
+              ]
+            }
+          ]
+        }
+      ],
+      "facts": [],
+      "readAt": 812345678.5,
+      "addedAt": 812345600
+    }
+  ]
+}

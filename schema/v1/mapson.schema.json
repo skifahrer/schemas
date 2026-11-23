@@ -338,6 +338,7 @@
         "requestSetup": { "$ref": "#/$defs/requestSetup" },
         "serverID": { "$ref": "#/$defs/uuid" },
         "serverLayerID": { "type": "string" },
+        "serverLook": { "$ref": "#/$defs/serverLook" },
         "connectivity": { "$ref": "#/$defs/layerConnectivity" },
         "apiReading": { "$ref": "#/$defs/apiReading" },
         "details": { "$ref": "#/$defs/layerDetails" },
@@ -650,10 +651,47 @@
         "imageKey": { "type": "string" },
         "headingKey": { "type": "string" },
         "shownKeys": { "$ref": "#/$defs/stringList" },
+        "filter": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/apiPointRule" },
+          "description": "Only points where every rule holds are kept."
+        },
         "detailRows": { "type": "array", "items": { "$ref": "#/$defs/detailRow" }, "description": "Legacy: the Details rows, read as the default layout when the layer has no `details`." },
         "connectionCard": { "$ref": "#/$defs/connectionCard", "description": "Legacy: the connection card, read as the default layout when the layer has no `details`." },
         "refreshSeconds": { "type": "integer", "minimum": 0 },
         "cookies": { "$ref": "#/$defs/cookiePreflight" }
+      }
+    },
+
+    "apiPointRule": {
+      "type": "object",
+      "required": ["key", "op"],
+      "properties": {
+        "key": { "type": "string", "description": "Dot path to a key of the point." },
+        "op": { "type": "string", "enum": ["is", "isNot", "contains", "notEmpty"] },
+        "value": { "type": "string", "description": "Absent for `notEmpty`." }
+      }
+    },
+
+    "serverLook": {
+      "type": "object",
+      "description": "Which version of its server's look the layer took. Absent: version 0, answered 0.",
+      "properties": {
+        "taken": { "type": "integer", "minimum": 0, "description": "The newest version taken whole." },
+        "answered": { "type": "integer", "minimum": 0, "description": "The newest version asked about, taken or kept." },
+        "parts": {
+          "type": "object",
+          "propertyNames": { "enum": ["markers", "details", "questions", "points"] },
+          "additionalProperties": { "$ref": "#/$defs/serverLookPart" }
+        }
+      }
+    },
+
+    "serverLookPart": {
+      "type": "object",
+      "properties": {
+        "taken": { "type": "integer", "minimum": 0 },
+        "hash": { "type": "string", "description": "The part as it was taken, to tell a change made since." }
       }
     },
 
