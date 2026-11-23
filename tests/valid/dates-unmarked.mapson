@@ -1,0 +1,12 @@
+{
+  "$schema": "https://raw.githubusercontent.com/skifahrer/schemas/master/schema/v1/mapson.schema.json",
+  "_schemaVersion": 1,
+  "_comment": "47 no marker is an older file: dates count from 2001",
+  "id": "0834FFB7-67BA-4327-87F2-E18AEE11B2FC",
+  "name": "OpenStreetMap",
+  "isBuiltIn": false,
+  "drawsRegions": false,
+  "isOnlineOnly": false,
+  "stack": [],
+  "styles": []
+}

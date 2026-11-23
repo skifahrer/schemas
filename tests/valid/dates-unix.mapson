@@ -1,0 +1,13 @@
+{
+  "$schema": "https://raw.githubusercontent.com/skifahrer/schemas/master/schema/v1/mapson.schema.json",
+  "_schemaVersion": 1,
+  "_dates": "unix",
+  "_comment": "47 the marker says every date is Unix seconds",
+  "id": "0834FFB7-67BA-4327-87F2-E18AEE11B2FC",
+  "name": "OpenStreetMap",
+  "isBuiltIn": false,
+  "drawsRegions": false,
+  "isOnlineOnly": false,
+  "stack": [],
+  "styles": []
+}

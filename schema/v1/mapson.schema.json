@@ -20,6 +20,7 @@
           "maximum": 1,
           "description": "Absent means 0, a file from before versioning. Readers refuse a version newer than theirs."
         },
+        "_dates": { "$ref": "#/$defs/datesMarker" },
         "_signature": {
           "type": "string",
           "description": "Opaque: Riki Maps' mark on its own exports. Others leave it out, and drop it on edit."
@@ -112,6 +113,7 @@
           "maximum": 2,
           "description": "2: a collection. Readers that know only 1 refuse it."
         },
+        "_dates": { "$ref": "#/$defs/datesMarker" },
         "maps": {
           "type": "array",
           "minItems": 1,
@@ -136,6 +138,10 @@
     "base64": {
       "type": "string",
       "pattern": "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$"
+    },
+    "datesMarker": {
+      "const": "unix",
+      "description": "\"unix\": every date in the file is Unix seconds. Absent marks an older file: numbers count from 2001-01-01T00:00:00Z and strings are ISO 8601. A collection carries it at the top, and each of its maps carries its own."
     },
     "date": { "type": "number", "minimum": 0, "description": "Unix seconds: since 1970-01-01T00:00:00Z." },
     "stringMap": { "type": "object", "additionalProperties": { "type": "string" } },
