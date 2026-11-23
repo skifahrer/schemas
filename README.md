@@ -303,7 +303,7 @@ alone, as version 1, so readers that know only one map still open it.
 
 - **Ids** are UUID strings such as `0834FFB7-67BA-4327-87F2-E18AEE11B2FC`. Either case works.
 - **Pictures** (`iconPicture`, `imageData`) are standard base64 with padding.
-- **Dates** are numbers: seconds since 2001-01-01T00:00:00Z.
+- **Dates** are numbers: Unix seconds, since 1970-01-01T00:00:00Z, in every schema.
 - **Integers** (zooms, counts, bytes) must be whole numbers. `18.5` is refused.
 - **Enums** (`role`, `format`, `overlay`, …) are closed. A value outside the list makes
   the whole file unreadable.
@@ -355,7 +355,7 @@ reuses mapson's `$defs` by relative `$ref`.
 {
   "$schema": "https://raw.githubusercontent.com/skifahrer/schemas/master/schema/v1/servson.schema.json",
   "_schemaVersion": 1,
-  "exportedAt": 812400000,
+  "exportedAt": 1790707200,
   "includesCredentials": false,
   "servers": [ /* in the writer's order */ ],
   "rikiHeaders": { /* host → header → value, only when includesCredentials */ },
@@ -491,7 +491,7 @@ ranges, and each one's packages with a download per container format.
 
 ```jsonc
 {
-  "_updated_at": "2026-10-01T09:35:02Z", "_updated_ts": 1790847302,
+  "_updated_ts": 1790847302,
   "slovensko": { "name": "Slovakia", "regions": {
     "banskobystricky": { "bbox": [18.46, 48.035, 20.49, 48.965], "maxzoom": 14,
       "maps": { "base": { "download": "…", "size": 167844433, "sha256": "…",
@@ -509,7 +509,7 @@ ranges, and each one's packages with a download per container format.
 - A package's top mirrors one of its formats, the ZIP where there is one, for older readers.
 - `min_app_version` on a package (`"1.2"`, `"1.2.3"`) is the oldest app that can display it; older
   apps don't offer it. Absent, any app can.
-- Dates are ISO 8601 UTC strings, with the same instant as Unix seconds in `*_ts`.
+- Dates are Unix seconds (`_updated_ts`, `updated_ts`). Old catalogs may still carry `*_at` strings; readers ignore them.
 - Unknown keys are allowed. The pipeline validates every catalog it writes against this schema.
 
 ### Mountains

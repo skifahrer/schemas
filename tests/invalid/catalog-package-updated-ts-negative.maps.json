@@ -1,0 +1,10 @@
+{
+  "_comment": "47 a package's date is Unix seconds, not negative",
+  "slovensko": {
+    "regions": {
+      "tatry": {
+        "maps": { "base": { "download": "https://example.com/a.zip", "updated_ts": -5 } }
+      }
+    }
+  }
+}

@@ -29,7 +29,7 @@
         { "id": 0, "name": "Huts", "geometryType": "esriGeometryPoint", "supportsQuery": true },
         { "id": 1, "name": "Paths", "geometryType": "esriGeometryPolyline", "supportsQuery": true, "groupName": "Network" }
       ],
-      "readAt": 780000000
+      "readAt": 1758307200
     }
   ],
   "stack": [

@@ -7,8 +7,7 @@
   "properties": {
     "$schema": { "type": "string", "description": "The schema the file follows: this schema's $id." },
     "_comment": { "type": "string" },
-    "_updated_at": { "$ref": "#/$defs/isoDate", "description": "When the pipeline last wrote the catalog." },
-    "_updated_ts": { "type": "integer", "minimum": 0, "description": "The same instant, Unix seconds." },
+    "_updated_ts": { "$ref": "mapson.schema.json#/$defs/date", "description": "When the pipeline last wrote the catalog." },
     "mountains": { "$ref": "#/$defs/mountains" }
   },
   "patternProperties": {
@@ -58,8 +57,7 @@
           "items": { "type": "string", "pattern": "^[A-Z]{2}$" },
           "description": "A range's: every country it lies in, ISO 3166-1 alpha-2; a range may cross a border."
         },
-        "updated_at": { "$ref": "#/$defs/isoDate" },
-        "updated_ts": { "type": "integer", "minimum": 0 },
+        "updated_ts": { "$ref": "mapson.schema.json#/$defs/date" },
         "run": { "type": "string", "description": "The CI run that built it." },
         "bbox": { "$ref": "#/$defs/bbox" },
         "area_bbox": { "$ref": "#/$defs/bbox", "description": "The cut-out of a subregion or a quick test." },
@@ -128,8 +126,7 @@
         "link": { "type": "string", "description": "A page a person can open." },
         "size": { "type": "integer", "minimum": 0, "description": "Bytes." },
         "run": { "type": "string" },
-        "updated_at": { "$ref": "#/$defs/isoDate" },
-        "updated_ts": { "type": "number", "minimum": 0 },
+        "updated_ts": { "$ref": "mapson.schema.json#/$defs/date" },
         "sha256": { "$ref": "#/$defs/sha256" },
         "min_app_version": { "$ref": "#/$defs/appVersion", "description": "The oldest Riki Maps that can display it; older ones don't offer it. Absent: any." },
         "formats": {
@@ -174,8 +171,7 @@
         "link": { "type": "string" },
         "size": { "type": "integer", "minimum": 0 },
         "run": { "type": "string" },
-        "updated_at": { "$ref": "#/$defs/isoDate" },
-        "updated_ts": { "type": "number", "minimum": 0 },
+        "updated_ts": { "$ref": "mapson.schema.json#/$defs/date" },
         "sha256": { "$ref": "#/$defs/sha256" }
       }
     },
@@ -202,11 +198,6 @@
       "description": "`[west, south, east, north]` in degrees."
     },
     "zoom": { "type": "integer", "minimum": 0, "maximum": 30 },
-    "isoDate": {
-      "type": "string",
-      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$",
-      "description": "ISO 8601, UTC."
-    },
     "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
     "appVersion": {
       "type": "string",
