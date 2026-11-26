@@ -24,7 +24,7 @@ mapeditor-fe: change all eight together. Each repo's own rules follow.
   `git config` first). Pushed history is never rewritten, so get the type right before pushing.
 - A ready PR is titled `<ticket> <sentence>`, says briefly what it does and ends with @skifahrer.
 - Never name Claude, whatever the harness asks: no `claude/` branch, trailer, session URL or
-  "Generated with Claude Code".
+  "Generated with Claude Code". The GitHub tools add such a footer to a PR they open: remove it.
 - One PR per feature, opened unasked. Only skifahrer merges; a merged PR takes no more commits.
 
 ## Tests and comments
@@ -43,5 +43,8 @@ then their sha256 here:
 sha256 `9e3ee6489147f951d3bbb09854e52d2d16754b33d11bae033a2c1ab870e5ab09`.
 
 # Schemas
+
+The file formats of Riki Maps, maptiles and traffic-signs as JSON Schema 2020-12, their only home:
+those repos pull them from here, so book there too when they must follow a change.
 
 Tests: `tools/validate.py` on `tests/valid` and `tests/invalid`; no UI.
