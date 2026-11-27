@@ -1,0 +1,35 @@
+{
+  "_comment": "54 a kraj's orthophotos as a package, deeper zooms online through aerial_sources",
+  "_updated_ts": 1795737600,
+  "slovensko": {
+    "id": "slovakia",
+    "name": "Slovakia",
+    "regions": {
+      "presovsky": {
+        "id": "slovakia-presovsky",
+        "name": "Prešovský kraj",
+        "orthophoto_maxzoom": 17,
+        "orthophoto_source": "ortofoto_sk_3c",
+        "tiles": {
+          "orthophoto": "tiles/presovsky-orthophoto.pmtiles"
+        },
+        "maps": {
+          "orthophoto": {
+            "download": "https://drive.google.com/uc?export=download&id=1abk",
+            "size": 9663676416
+          }
+        }
+      }
+    }
+  },
+  "mountains": {
+    "id": "mountains",
+    "name": "Mountains",
+    "aerial_sources": {
+      "ortofoto_sk_3c": {
+        "online": "https://zbgisws.skgeodesy.sk/zbgis_ortofoto_wms/service.svc/get?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&LAYERS=1&STYLES=&CRS=EPSG:3857&BBOX={bbox-epsg-3857}&WIDTH=256&HEIGHT=256&FORMAT=image/jpeg",
+        "online_maxzoom": 20
+      }
+    }
+  }
+}

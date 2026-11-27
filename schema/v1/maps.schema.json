@@ -23,12 +23,12 @@
         "name": { "type": "string", "description": "Shown by the app, in English." },
         "aerial_sources": {
           "type": "object",
-          "description": "Photo source key, as a package's `aerial_summer_source` names it → the server that goes deeper than its packages, for an app to load those zooms online.",
+          "description": "Photo source key, as a package's `aerial_summer_source` or `orthophoto_source` names it → the server that goes deeper than its packages, for an app to load those zooms online.",
           "additionalProperties": {
             "type": "object",
             "required": ["online", "online_maxzoom"],
             "properties": {
-              "online": { "type": "string", "pattern": "^https://", "description": "Tile address with `{z}`, `{x}` and `{y}`." },
+              "online": { "type": "string", "pattern": "^https://", "description": "Tile address with `{z}`, `{x}` and `{y}`, or a WMS GetMap with `{bbox-epsg-3857}`." },
               "online_maxzoom": { "$ref": "#/$defs/zoom" }
             }
           }
@@ -84,6 +84,8 @@
         "buildings_maxzoom": { "$ref": "#/$defs/zoom" },
         "aerial_summer_maxzoom": { "$ref": "#/$defs/zoom" },
         "aerial_winter_maxzoom": { "$ref": "#/$defs/zoom" },
+        "orthophoto_maxzoom": { "$ref": "#/$defs/zoom", "description": "A region's orthophotos: the deepest zoom of its `orthophoto` package." },
+        "orthophoto_source": { "type": "string", "description": "The photo source its `orthophoto` package was built from, a key of `mountains.aerial_sources` when it goes deeper online." },
         "layers": {
           "type": "array",
           "items": { "type": "string" },
