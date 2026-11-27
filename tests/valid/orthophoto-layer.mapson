@@ -1,0 +1,26 @@
+{
+  "$schema": "https://raw.githubusercontent.com/skifahrer/schemas/master/schema/v1/mapson.schema.json",
+  "_schemaVersion": 1,
+  "id": "5A1D0054-0000-4000-A000-000000000001",
+  "name": "Slovakia from the air (54)",
+  "isBuiltIn": false,
+  "drawsRegions": false,
+  "isOnlineOnly": false,
+  "stack": [
+    {
+      "id": "5A1D0054-0000-4000-A000-000000000002",
+      "name": "Orthophoto",
+      "symbol": "camera.aperture",
+      "role": "base",
+      "opacity": 1,
+      "isEnabled": true,
+      "loadsPhotosOnline": true,
+      "source": {
+        "region": {
+          "overlay": "orthophoto"
+        }
+      }
+    }
+  ],
+  "styles": []
+}

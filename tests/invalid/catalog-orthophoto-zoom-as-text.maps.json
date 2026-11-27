@@ -1,0 +1,12 @@
+{
+  "_comment": "54 a region's orthophoto_maxzoom is a whole zoom, not text",
+  "slovensko": {
+    "id": "slovakia",
+    "regions": {
+      "kosicky": {
+        "id": "slovakia-kosicky",
+        "orthophoto_maxzoom": "17"
+      }
+    }
+  }
+}

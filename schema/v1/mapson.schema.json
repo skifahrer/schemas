@@ -307,7 +307,7 @@
         "darkensInDarkMode": { "type": "boolean" },
         "hidesRouteIcons": { "type": "boolean" },
         "hidesTrails": { "type": "boolean" },
-        "loadsPhotosOnline": { "type": "boolean", "description": "Summer photos past their package's deepest zoom load from the catalog's `mountains.aerial_sources`." },
+        "loadsPhotosOnline": { "type": "boolean", "description": "Summer photos or orthophotos past their package's deepest zoom load from the catalog's `mountains.aerial_sources`." },
         "hiddenParts": {
           "type": "array",
           "items": {
@@ -393,12 +393,12 @@
             "overlay": {
               "type": "string",
               "enum": ["cartography", "hillshading", "heightModel", "contours", "rocks",
-                       "aerialSummer", "aerialWinter", "waymarked",
+                       "aerialSummer", "aerialWinter", "orthophoto", "waymarked",
                        "roads", "paths", "points", "boundaries", "water", "railways",
                        "history", "names", "ski", "settlements", "mountains",
                        "contoursRocks", "roadsPaths", "hillshade", "terrain3D", "trails",
                        "pistes", "features"],
-              "description": "A region package. The last seven are legacy names, still read: `roadsPaths` reads as `roads`, `contoursRocks` as `contours`."
+              "description": "A region package; `orthophoto` is a region's aerial photos, a base layer. The last seven are legacy names, still read: `roadsPaths` reads as `roads`, `contoursRocks` as `contours`."
             }
           }
         },

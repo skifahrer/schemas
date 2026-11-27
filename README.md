@@ -548,6 +548,14 @@ Its id is `mountains` and its key, joined by `-`, unique with the region ids. Ca
 before the category listed ranges under their country's `mountains` (`slovakia-vysoke_tatry`);
 a reader takes those as ranges of that country.
 
+### Orthophotos
+
+A region of a country with an orthophoto mosaic (Slovakia's kraje) may carry an `orthophoto`
+package: the aerial photos as one raster archive, WebP tiles, with `orthophoto_maxzoom` and
+`orthophoto_source`, the photo source it was built from. When `mountains.aerial_sources` names
+that source, an app may load the zooms past the package online (a layer's `loadsPhotosOnline`).
+A map draws it through a base layer, `{ "source": { "region": { "overlay": "orthophoto" } } }`.
+
 ### Region ids
 
 Keys under `regions` are unique only within their country. The `id` is unique across the whole
